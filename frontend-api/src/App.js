@@ -1,6 +1,7 @@
 import { DatePicker, Space } from "antd";
 import "antd/dist/reset.css";
 import "./App.css";
+import EmployeeProfile from "./Pages/EmployeeProfile";
 
 const onChange = (date, dateString) => {
 	console.log(date, dateString);
@@ -8,13 +9,7 @@ const onChange = (date, dateString) => {
 
 function App() {
 	return (
-		<Space direction="vertical">
-			<DatePicker onChange={onChange} />
-			<DatePicker onChange={onChange} picker="week" />
-			<DatePicker onChange={onChange} picker="month" />
-			<DatePicker onChange={onChange} picker="quarter" />
-			<DatePicker onChange={onChange} picker="year" />
-		</Space>
+		<EmployeeProfile />
 	);
 }
 
