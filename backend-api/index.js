@@ -18,13 +18,13 @@ let rawData = fs.readFileSync(fileName);
 let data = JSON.parse(rawData);
 
 // This is a RESTful GET web service
-app.get("/students", (request, response) => {
+app.get("/employees", (request, response) => {
 	data.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
 	response.send(data);
 });
 
 // This is a RESTful POST web service
-app.post("/students", jsonParser, (request, response) => {
+app.post("/employees", jsonParser, (request, response) => {
 	data.push(request.body);
 	fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
 	response.end();
