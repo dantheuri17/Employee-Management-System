@@ -13,21 +13,26 @@ app.use(
 	})
 );
 
-// Load data from file
+// Load employeeData from file
 let rawData = fs.readFileSync(fileName);
-let data = JSON.parse(rawData);
+let employeeData = JSON.parse(rawData);
 
 // This is a RESTful GET web service
 app.get("/employees", (request, response) => {
-	data.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
-	response.send(data);
+	employeeData.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
+	response.send(employeeData);
 });
+
+app.get('/getEmployees', (req, res) => {
+	console.log(res.json(employeeData))
+	
+})
 
 // This is a RESTful POST web service
 app.post("/employees", jsonParser, (request, response) => {
-	data.push(request.body);
-	fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
-	response.end();
+	employeeData.push(request.body);
+	fs.writeFileSync(fileName, JSON.stringify(employeeData, null, 2));
+	
 });
 
 app.listen(port);
