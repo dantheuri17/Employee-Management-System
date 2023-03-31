@@ -7,19 +7,19 @@ const EmployeeProfile = () => {
 
 	const serverHost = "http://localhost:4000";
 
-	const fetchData = useEffect(() => {
-		
+	useEffect(() => {
+		const fetchData = async () => {
 			try {
-				let response = fetch(serverHost + "/getEmployees");
-				let employeeData = response.json();
+				let response = await fetch(serverHost + "/getEmployees");
+				let employeeData = await response.json();
 				console.log(employeeData);
 				setReceivedEmployeeData(employeeData);
 			} catch (error) {
 				console.log(error);
 			}
-		
-
-	}, []);
+		}
+		fetchData(); 
+		}, []);
 
 	async function addEmployee(employee) {
 		const url = serverHost + "/employees";
@@ -34,7 +34,6 @@ const EmployeeProfile = () => {
 		if (response.status === 200) {
 			setSubmitted(true);
 		}
-		
 	}
 
 	
