@@ -5,6 +5,7 @@ const cors = require("cors");
 const port = 4000;
 const jsonParser = express.json();
 const fileName = "employees.json";
+const uuid = require('uuid').v4;
 
 // Allow requests only from this client
 app.use(
@@ -31,13 +32,26 @@ app.get('/employees', (req, res) => {
 
 // This is a RESTful POST web service
 app.post("/addEmployee", jsonParser, (request, response) => {
-	employeeData.push(request.body);
+	const employeeID = uuid()
+	const newEmployeeObject = request.body
+
+	const employeeObjectWithID = {employeeID: employeeID, ...newEmployeeObject}
+	employeeData.push(employeeObjectWithID);
+
 	fs.writeFileSync(fileName, JSON.stringify(employeeData, null, 2));
+	console.log(employeeData)
 	response.send(employeeData);
+	
 	
 });
 
-app.post("/deleteEmployee")
+app.delete("/deleteEmployee/:employeeID", (request, response) => {
+	const id = request.params.employeeID;
+	employeeData = employeeData.filter((employee) => employee.employeeID !== id);
+	fs.writeFileSync(fileName, JSON.stringify(employeeData, null, 2));
+	response.send(employeeData);
+});
+
 
 app.listen(port);
 console.log(`server listening on port ${port}`);

@@ -7,17 +7,18 @@ const EmployeeProfile = () => {
 
 	const serverHost = "http://localhost:4000";
 
+	const fetchData = async () => {
+		try {
+			let response = await fetch(serverHost + "/employees");
+			let employeeData = await response.json();
+			console.log(employeeData);
+			setReceivedEmployeeData(employeeData);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				let response = await fetch(serverHost + "/employees");
-				let employeeData = await response.json();
-				console.log(employeeData);
-				setReceivedEmployeeData(employeeData);
-			} catch (error) {
-				console.log(error);
-			}
-		};
 		fetchData();
 	}, []);
 
@@ -36,6 +37,16 @@ const EmployeeProfile = () => {
 		}
 	}
 
+	async function deleteEmployee(employeeID) {
+		const url = `${serverHost}/deleteEmployee/${employeeID}`;
+		const options = {
+			method: "DELETE",
+		};
+		const response = await fetch(url, options);
+		const employeeData = await response.json();
+		setReceivedEmployeeData(employeeData);
+	}
+
 	const handleChange = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
@@ -49,10 +60,12 @@ const EmployeeProfile = () => {
 		};
 		setData(updatedData);
 	};
-	const handleSubmit = (e) => {
-		console.log(data);
-		addEmployee(data);
+	const handleSubmit = async (e) => {
+		
 		e.preventDefault();
+		await addEmployee(data);
+		fetchData();
+
 	};
 
 	return (
@@ -80,18 +93,27 @@ const EmployeeProfile = () => {
 			) : (
 				receivedEmployeeData.map((employee) => {
 					return (
-						<div>
+						<div key={employee.employeeID}>
 							<table>
 								<thead>
 									<tr>
-										<th style={{ margin: 1.5 + 'em' }}>First Name</th>
+										<th>ID</th>
+										<th style={{ margin: 1.5 + "em" }}>First Name</th>
 										<th>Last Name</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td style={{ margin: 1.5 + 'em' }}>{employee.firstName}</td>
+									<tr key={employee.employeeID}>
+										<td>{employee.employeeID}</td>
+										<td style={{ margin: 1.5 + "em" }}>{employee.firstName}</td>
 										<td>{employee.lastName}</td>
+										<td>
+											<button
+												onClick={() => deleteEmployee(employee.employeeID)}
+											>
+												Delete
+											</button>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -101,6 +123,8 @@ const EmployeeProfile = () => {
 			)}
 		</div>
 	);
+
+	
 };
 
 export default EmployeeProfile;
