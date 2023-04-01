@@ -10,19 +10,19 @@ const EmployeeProfile = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				let response = await fetch(serverHost + "/getEmployees");
+				let response = await fetch(serverHost + "/employees");
 				let employeeData = await response.json();
 				console.log(employeeData);
 				setReceivedEmployeeData(employeeData);
 			} catch (error) {
 				console.log(error);
 			}
-		}
-		fetchData(); 
-		}, []);
+		};
+		fetchData();
+	}, []);
 
 	async function addEmployee(employee) {
-		const url = serverHost + "/employees";
+		const url = serverHost + "/addEmployee";
 		const options = {
 			method: "POST",
 			headers: {
@@ -35,8 +35,6 @@ const EmployeeProfile = () => {
 			setSubmitted(true);
 		}
 	}
-
-	
 
 	const handleChange = (e) => {
 		const name = e.target.name;
@@ -59,7 +57,7 @@ const EmployeeProfile = () => {
 
 	return (
 		<div>
-			<h1>This is the Employee Page</h1>
+			<h1>This is the Employee Component</h1>
 			{!submitted ? (
 				<form onSubmit={handleSubmit}>
 					<label>
@@ -80,15 +78,26 @@ const EmployeeProfile = () => {
 					<input type="submit" value="submit" />
 				</form>
 			) : (
-				
-				receivedEmployeeData.map((element) => {
-                return (
-                    <div>
-                        <h2>{element.firstName}</h2>
-                        <h2>{element.lastName}</h2>
-                    </div>
-                )
-            })
+				receivedEmployeeData.map((employee) => {
+					return (
+						<div>
+							<table>
+								<thead>
+									<tr>
+										<th style={{ margin: 1.5 + 'em' }}>First Name</th>
+										<th>Last Name</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style={{ margin: 1.5 + 'em' }}>{employee.firstName}</td>
+										<td>{employee.lastName}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					);
+				})
 			)}
 		</div>
 	);
