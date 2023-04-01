@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "antd/dist/reset.css";
 import "./App.css";
 import EmployeeProfile from "./Pages/EmployeeProfile";
