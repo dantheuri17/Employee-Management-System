@@ -1,13 +1,28 @@
-import React, {useState} from 'react' 
+import React, { useState, useEffect } from "react";
 
 const EmployeeProfile = () => {
 	const [data, setData] = useState({});
+	const [receivedEmployeeData, setReceivedEmployeeData] = useState([]);
 	const [submitted, setSubmitted] = useState(false);
 
 	const serverHost = "http://localhost:4000";
 
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				let response = await fetch(serverHost + "/employees");
+				let employeeData = await response.json();
+				console.log(employeeData);
+				setReceivedEmployeeData(employeeData);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchData();
+	}, []);
+
 	async function addEmployee(employee) {
-		const url = serverHost + "/employees";
+		const url = serverHost + "/addEmployee";
 		const options = {
 			method: "POST",
 			headers: {
@@ -38,37 +53,54 @@ const EmployeeProfile = () => {
 		console.log(data);
 		addEmployee(data);
 		e.preventDefault();
-		
 	};
 
 	return (
 		<div>
-			<h1>This is the Employee Page</h1>
-			{!submitted ?
-			<form onSubmit={handleSubmit}>
-				<label>
-					First name:
-					<input name="firstName" type="text" onChange={handleChange} />
-				</label>
-				<br />
-				<label>
-					Middle name:
-					<input name="middleName" type="text" onChange={handleChange} />
-				</label>
-				<br />
-				<label>
-					Last name:
-					<input name="lastName" type="text" onChange={handleChange} />
-				</label>
-				<br />
-				<input type="submit" value="submit" />
-			</form>
-			:
-			<p>Your data has been submitted successfully. Thank you</p> 
-	}
+			<h1>This is the Employee Component</h1>
+			{!submitted ? (
+				<form onSubmit={handleSubmit}>
+					<label>
+						First name:
+						<input name="firstName" type="text" onChange={handleChange} />
+					</label>
+					<br />
+					<label>
+						Middle name:
+						<input name="middleName" type="text" onChange={handleChange} />
+					</label>
+					<br />
+					<label>
+						Last name:
+						<input name="lastName" type="text" onChange={handleChange} />
+					</label>
+					<br />
+					<input type="submit" value="submit" />
+				</form>
+			) : (
+				receivedEmployeeData.map((employee) => {
+					return (
+						<div>
+							<table>
+								<thead>
+									<tr>
+										<th style={{ margin: 1.5 + 'em' }}>First Name</th>
+										<th>Last Name</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style={{ margin: 1.5 + 'em' }}>{employee.firstName}</td>
+										<td>{employee.lastName}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					);
+				})
+			)}
 		</div>
 	);
 };
 
-
-export default EmployeeProfile
+export default EmployeeProfile;
