@@ -19,7 +19,7 @@ let data = JSON.parse(rawData);
 
 // This is a RESTful GET web service
 app.get("/employees", (request, response) => {
-	data.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
+	data.sort((a, b) => (a.name > b.name ? 1 : -1));
 	response.send(data);
 });
 

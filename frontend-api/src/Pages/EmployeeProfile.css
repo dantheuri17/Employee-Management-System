@@ -1,0 +1,45 @@
+#contentdiv{
+    width: 80vw;
+    margin: auto;
+    margin-top: 5em;
+}
+/*
+.float-label {
+    position: relative;
+    margin-bottom: 1em;
+  }
+  
+.label {
+    font-size: 12px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 1em;
+    top: 0.8em;
+    transition: 0.2s ease all;
+  }
+  
+.label-float {
+    top: 0.5em;
+    font-size: 0.5em;
+  }
+  
+.ant-input {
+    padding: 2.5em 1.5em 0.8em 1em;
+  }
+
+  .ant-form-item{
+    margin-top: 3em;
+}
+
+  */
+
+.ant-input-number{
+    width: 100%;
+
+}
+
+.ant-picker{
+    width: 100%;
+
+}

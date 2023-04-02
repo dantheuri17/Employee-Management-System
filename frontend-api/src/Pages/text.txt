@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./EmployeeProfile.css";
+import moment from 'moment';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   Form,
@@ -37,37 +38,26 @@ const EmployeeProfile = () => {
 		}
 	}
 
-	const handleChange = (e) => {
-		console.log("Value in e", e)
-		const name = e.target.name;
-		const value = e.target.value;
+	const handleChange = (name, value) => {
 		//create an object for the current input field event
-		const currentInputFieldData = {
-			[name]: value,
-		};
-		const updatedData = {
-			...data,
-			...currentInputFieldData,
-		};
-		setData(updatedData);
-	};
-
-	const handleSelect = (name, option) => {
-		console.log("Value in  name  and option", name,  option)
+		let currentInputFieldData;
+		if(name === "dateJoined"){
+			currentInputFieldData = {
+				[name]: value.format(),
+			};
+		}
+		else{
+			currentInputFieldData = {
+				[name]: value,
+			};
+		}
 		
-		//create an object for the current input field event
-		const currentInputFieldData = {
-			[name]: option,
-		};
 		const updatedData = {
 			...data,
 			...currentInputFieldData,
 		};
 		setData(updatedData);
 	};
-
-
-
 	const handleSubmit = (e) => {
 		console.log(data);
 		addEmployee(data);
@@ -82,36 +72,37 @@ const EmployeeProfile = () => {
 				<Form.Item name="employeeName" rules={[{ required: true }]}>
 				<label>
 					Employee Name
-					<Input onChange={handleChange}/>
+					<Input name="employeeName" onChange={handleChange}/>
 				</label>
 				</Form.Item>
 
 				<Form.Item name="email" rules={[{ required: true, type: 'email' }]}>
 				<label>
 					Email
-					<Input onChange={handleChange}/>
+					<Input name="email" onChange={handleChange}/>
 				</label>
 				</Form.Item>
 				<Form.Item name="phoneNumber" rules={[{ required: true}]}>
 				<label>
 					Phone Number
-					<Input onChange={handleChange}/>
+					<Input name="phoneNumber" onChange={handleChange}/>
 				</label>
 				</Form.Item>
 				<Form.Item name="employeeStatus" rules={[{ required: true}]} >
 				<label>
 					Employee Status
-					<Select name="employeeStatus" onChange={handleChange} >
+					<Select name="employeeStatus"  value={data.employeeStatus} onSelect={(value)=> handleChange("employeeStatus", value)}>
 						<Select.Option value="employed">Employed</Select.Option>
 						<Select.Option value="fired">Fired</Select.Option>
 						<Select.Option value="resigned">Resigned</Select.Option>
 					</Select>
 				</label>
 			</Form.Item>
-			<Form.Item  name="date" rules={[{ required: true}]} >
+
+			<Form.Item name="dateJoined" rules={[{ required: true}]}>
 			<label>
 				Date Joined
-			<DatePicker onChange={handleChange}/>
+			<DatePicker name="dateJoined"  value={moment(data.dateJoined)} onChange={(value) => handleChange("dateJoined", value)}/>
 			</label>
 			</Form.Item>
 
