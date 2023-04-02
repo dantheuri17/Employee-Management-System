@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { Space, Table, Tag } from "antd";
 
-const TestComponent = () => {
-
-   	const [data, setData] = useState({});
+const EmployeeProfile = () => {
+	const [data, setData] = useState({});
 	const [receivedEmployeeData, setReceivedEmployeeData] = useState([]);
 	const [submitted, setSubmitted] = useState(false);
+	
 
-    const serverHost = "http://localhost:4000";
+	const serverHost = "http://localhost:4000";
+
+	const fetchData = async () => {
+		try {
+			let response = await fetch(serverHost + "/employees");
+			let employeeData = await response.json();
+			console.log(employeeData);
+			setReceivedEmployeeData(employeeData);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				let response = await fetch(serverHost + "/getEmployees");
-				let employeeData = await response.json();
-				console.log(employeeData);
-				setReceivedEmployeeData(employeeData);
-			} catch (error) {
-				console.log(error);
-			}
-		};
 		fetchData();
 	}, []);
 
 	async function addEmployee(employee) {
-		const url = serverHost + "/employees";
+		const url = serverHost + "/addEmployee";
 		const options = {
 			method: "POST",
 			headers: {
@@ -36,6 +38,28 @@ const TestComponent = () => {
 			setSubmitted(true);
 		}
 	}
+
+	// async function deleteEmployee(employeeID) {
+	// 	const url = `${serverHost}/deleteEmployee/${employeeID}`;
+	// 	const options = {
+	// 		method: "DELETE",
+	// 	};
+	// 	const response = await fetch(url, options);
+	// 	const employeeData = await response.json();
+	// 	setReceivedEmployeeData(employeeData);
+	// }
+
+	async function deleteEmployee(employeeID) {
+		const url = `${serverHost}/deleteEmployee/${employeeID}`;
+		const options = {
+			method: "DELETE",
+		};
+		const response = await fetch(url, options);
+		if (response.status === 200) {
+			fetchData();
+		}
+	}
+
 
 	const handleChange = (e) => {
 		const name = e.target.name;
@@ -50,15 +74,37 @@ const TestComponent = () => {
 		};
 		setData(updatedData);
 	};
-	const handleSubmit = (e) => {
-		console.log(data);
-		addEmployee(data);
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+		await addEmployee(data);
+		fetchData();
 	};
 
+	const tableColumns = [
+		{
+			title: "First Name",
+			dataIndex: "firstName",
+			key: "firstName",
+			render: (text) => <a>{text}</a>,
+		},
+		{
+			title: "Last Name",
+			dataIndex: "lastName",
+			key: "lastName",
+		},
+		{
+			title: "Action",
+			key: "action",
+			render: (text, record) => (
+				<Space size="middle">
+					<a onClick={() => deleteEmployee(record.employeeID)}>Delete</a>
+				</Space>
+			),
+		},
+	];
 	return (
 		<div>
-			<h1>This is the Test Component</h1>
+			<h1>This is the Employee Component</h1>
 			{!submitted ? (
 				<form onSubmit={handleSubmit}>
 					<label>
@@ -79,17 +125,10 @@ const TestComponent = () => {
 					<input type="submit" value="submit" />
 				</form>
 			) : (
-				receivedEmployeeData.map((element) => {
-					return (
-						<div>
-							<h2>{element.firstName}</h2>
-							<h2>{element.lastName}</h2>
-						</div>
-					);
-				})
+				<Table columns={tableColumns} dataSource={receivedEmployeeData} rowKey="employeeID"/>
 			)}
 		</div>
 	);
 };
 
-export default TestComponent;
+export default EmployeeProfile;
