@@ -97,6 +97,35 @@ const EmployeeProfile = () => {
 		setData(updatedData);
 	};
 
+	function updateManagerOptions(selectedDepartment) {
+		const myData= receivedEmployeeData;
+		console.log("MY DATA", myData);
+		console.log("Slected Dep", selectedDepartment);
+		const managersInDepartment = myData.filter(employee => (employee.isManager === true) && (employee.department === selectedDepartment));
+		console.log("Managers in Deparment", managersInDepartment)
+		const managerDropdown = document.getElementById("manager");
+	
+		// Clear existing options
+		if(managerDropdown.options){
+		var i, L = managerDropdown.options.length - 1;
+		for(i = L; i >= 0; i--) {
+			managerDropdown.remove(i);
+		}
+		console.log("Just cleared manager dropdown")
+	}
+	
+		// Add new options
+		managersInDepartment.forEach(manager => {
+		console.log("Inside For each")
+		console.log("Manager", manager)
+		  const option = document.createElement("option");
+		  option.value = manager.employeeName;
+		  option.text = manager.employeeName;
+		  managerDropdown.appendChild(option);
+		});
+	  }
+
+	// HANDLING FORM INPUTS
 	const handleCalendar = (mydate, myname) => {
 		console.log("Value in date", mydate)
 		console.log("value in name", myname);
@@ -134,6 +163,10 @@ const EmployeeProfile = () => {
 		console.log("Updated Data", updatedData)
 
 		setData(updatedData);
+
+		// if(selectName === "department"){
+		// 	updateManagerOptions(value);
+		// }
 	};
 
 	const handleSwitch = (checked) => {
@@ -153,6 +186,8 @@ const EmployeeProfile = () => {
 		await addEmployee(data);
 		fetchData();
 	};
+
+
 
 	const tableColumns = [
 		{
@@ -209,14 +244,13 @@ const EmployeeProfile = () => {
 				<div id="contentdiv">
 				<Row gutter={[100, 100]}>
 				<Col span={8}>
-				{/* First column */}
 				<div>
 					<img src={require("./passport.jpg")} alt="Employee" width={300} height={375}/>
 				</div>
 				</Col>
 				<Col span={8}>
 				<Title level={4}>GENERAL DETAILS</Title>
-				<Form.Item name="employeeName" rules={[{ required: true }]}>
+				<Form.Item name="employeeName" rules={[{required: true }]}>
 				<label>
 					Employee Name
 					<Input name="employeeName" onChange={handleChange}/>
@@ -291,7 +325,7 @@ const EmployeeProfile = () => {
 				<Form.Item name="department" rules={[{ required: true}]} >
 				<label>
 					Department
-					<Select name="department" onChange={(status) => handleSelect(status, 'department')} >
+					<Select name="department" id="department" onChange={(status) => handleSelect(status, 'department')} >
 						<Select.Option value="IT">IT</Select.Option>
 						<Select.Option value="Finance">Finance</Select.Option>
 						<Select.Option value="Human Resource">Human Resource</Select.Option>
@@ -305,11 +339,10 @@ const EmployeeProfile = () => {
 				<Form.Item name="manager" rules={[{ required: true}]} >
 				<label>
 					Manager
-					<Select name="manager" onChange={(status) => handleSelect(status, 'manager')} >
-						<Select.Option value="none">None</Select.Option>
-						<Select.Option value="linda">Linda</Select.Option>
-						<Select.Option value="irene">Irene</Select.Option>
-						<Select.Option value="mark">Mark</Select.Option>
+					<Select name="manager" id="manager" onChange={(status) => handleSelect(status, 'manager')} >
+						<Select.Option value="Irene">Irene</Select.Option>
+						<Select.Option value="Jane">Jane</Select.Option>
+						<Select.Option value="Mark">Mark</Select.Option>
 					</Select>
 				</label>
 				</Form.Item>

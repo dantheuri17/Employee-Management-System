@@ -38,5 +38,19 @@
     "workType": "Remote",
     "department": "Research and Development",
     "manager": "irene"
+  },
+  {
+    "employeeID": "907090c5-6072-4f69-b4a4-7601f8af05e2",
+    "employeeName": "Chebet Koske",
+    "employeeEmail": "chebet@gmail.com",
+    "phoneNumber": "0722667733",
+    "employeeStatus": "Employed",
+    "dateJoined": "2023-04-26T17:10:57.864Z",
+    "position": "Cyber Security Consultant",
+    "employementType": "Parttime",
+    "workType": "Hybrid",
+    "department": "IT",
+    "manager": "Jane",
+    "isManager": false
   }
 ]
