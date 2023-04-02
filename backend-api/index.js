@@ -5,6 +5,7 @@ const cors = require("cors");
 const port = 4000;
 const jsonParser = express.json();
 const fileName = "employees.json";
+const uuid = require('uuid').v4;
 
 // Allow requests only from this client
 app.use(
@@ -13,22 +14,44 @@ app.use(
 	})
 );
 
-// Load data from file
+// Load employeeData from file
 let rawData = fs.readFileSync(fileName);
-let data = JSON.parse(rawData);
+let employeeData = JSON.parse(rawData);
 
 // This is a RESTful GET web service
-app.get("/employees", (request, response) => {
-	data.sort((a, b) => (a.name > b.name ? 1 : -1));
-	response.send(data);
-});
+// app.get("/employees", (request, response) => {
+// 	employeeData.sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
+	
+// });
+
+app.get('/employees', (req, res) => {
+	res.json(employeeData)
+	console.log(employeeData)
+	
+})
 
 // This is a RESTful POST web service
-app.post("/employees", jsonParser, (request, response) => {
-	data.push(request.body);
-	fs.writeFileSync(fileName, JSON.stringify(data, null, 2));
-	response.end();
+app.post("/addEmployee", jsonParser, (request, response) => {
+	const employeeID = uuid()
+	const newEmployeeObject = request.body
+
+	const employeeObjectWithID = {employeeID: employeeID, ...newEmployeeObject}
+	employeeData.push(employeeObjectWithID);
+
+	fs.writeFileSync(fileName, JSON.stringify(employeeData, null, 2));
+	console.log(employeeData)
+	response.send(employeeData);
+	
+	
 });
+
+app.delete("/deleteEmployee/:employeeID", (request, response) => {
+	const id = request.params.employeeID;
+	employeeData = employeeData.filter((employee) => employee.employeeID !== id);
+	fs.writeFileSync(fileName, JSON.stringify(employeeData, null, 2));
+	response.send(employeeData);
+});
+
 
 app.listen(port);
 console.log(`server listening on port ${port}`);

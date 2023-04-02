@@ -5,6 +5,7 @@ const EmployeeProfile = () => {
 	const [data, setData] = useState({});
 	const [receivedEmployeeData, setReceivedEmployeeData] = useState([]);
 	const [submitted, setSubmitted] = useState(false);
+	
 
 	const serverHost = "http://localhost:4000";
 
@@ -59,8 +60,8 @@ const EmployeeProfile = () => {
 		}
 	}
 
+
 	const handleChange = (e) => {
-		console.log("Value in e", e)
 		const name = e.target.name;
 		const value = e.target.value;
 		//create an object for the current input field event
@@ -84,7 +85,7 @@ const EmployeeProfile = () => {
 			title: "First Name",
 			dataIndex: "firstName",
 			key: "firstName",
-			
+			render: (text) => <a>{text}</a>,
 		},
 		{
 			title: "Last Name",
@@ -92,7 +93,7 @@ const EmployeeProfile = () => {
 			key: "lastName",
 		},
 		{
-			title: "",
+			title: "Action",
 			key: "action",
 			render: (text, record) => (
 				<Space size="middle">
@@ -124,11 +125,7 @@ const EmployeeProfile = () => {
 					<input type="submit" value="submit" />
 				</form>
 			) : (
-				<Table
-					columns={tableColumns}
-					dataSource={receivedEmployeeData}
-					rowKey="employeeID"
-				/>
+				<Table columns={tableColumns} dataSource={receivedEmployeeData} rowKey="employeeID"/>
 			)}
 		</div>
 	);
