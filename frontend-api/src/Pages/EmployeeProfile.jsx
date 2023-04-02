@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Space, Table, Tag } from "antd";
 
 const EmployeeProfile = () => {
 	const [data, setData] = useState({});
@@ -37,14 +38,25 @@ const EmployeeProfile = () => {
 		}
 	}
 
+	// async function deleteEmployee(employeeID) {
+	// 	const url = `${serverHost}/deleteEmployee/${employeeID}`;
+	// 	const options = {
+	// 		method: "DELETE",
+	// 	};
+	// 	const response = await fetch(url, options);
+	// 	const employeeData = await response.json();
+	// 	setReceivedEmployeeData(employeeData);
+	// }
+
 	async function deleteEmployee(employeeID) {
 		const url = `${serverHost}/deleteEmployee/${employeeID}`;
 		const options = {
 			method: "DELETE",
 		};
 		const response = await fetch(url, options);
-		const employeeData = await response.json();
-		setReceivedEmployeeData(employeeData);
+		if (response.status === 200) {
+			fetchData();
+		}
 	}
 
 	const handleChange = (e) => {
@@ -61,13 +73,33 @@ const EmployeeProfile = () => {
 		setData(updatedData);
 	};
 	const handleSubmit = async (e) => {
-		
 		e.preventDefault();
 		await addEmployee(data);
 		fetchData();
-
 	};
 
+	const tableColumns = [
+		{
+			title: "First Name",
+			dataIndex: "firstName",
+			key: "firstName",
+			
+		},
+		{
+			title: "Last Name",
+			dataIndex: "lastName",
+			key: "lastName",
+		},
+		{
+			title: "",
+			key: "action",
+			render: (text, record) => (
+				<Space size="middle">
+					<a onClick={() => deleteEmployee(record.employeeID)}>Delete</a>
+				</Space>
+			),
+		},
+	];
 	return (
 		<div>
 			<h1>This is the Employee Component</h1>
@@ -91,40 +123,14 @@ const EmployeeProfile = () => {
 					<input type="submit" value="submit" />
 				</form>
 			) : (
-				receivedEmployeeData.map((employee) => {
-					return (
-						<div key={employee.employeeID}>
-							<table>
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th style={{ margin: 1.5 + "em" }}>First Name</th>
-										<th>Last Name</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr key={employee.employeeID}>
-										<td>{employee.employeeID}</td>
-										<td style={{ margin: 1.5 + "em" }}>{employee.firstName}</td>
-										<td>{employee.lastName}</td>
-										<td>
-											<button
-												onClick={() => deleteEmployee(employee.employeeID)}
-											>
-												Delete
-											</button>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					);
-				})
+				<Table
+					columns={tableColumns}
+					dataSource={receivedEmployeeData}
+					rowKey="employeeID"
+				/>
 			)}
 		</div>
 	);
-
-	
 };
 
 export default EmployeeProfile;
