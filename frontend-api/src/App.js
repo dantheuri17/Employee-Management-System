@@ -8,7 +8,7 @@ import { Space, Table, Tag } from 'antd';
 
 function App() {
 	return (
-		<TestComponent />
+		<EmployeeProfile />
 	);
 }
 

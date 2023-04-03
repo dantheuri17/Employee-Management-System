@@ -196,259 +196,22 @@ const EmployeeProfile = () => {
 		fetchData();
 		setShowAddEmployee(false); 
 	};
-
+	
 	const handleHideAddEmployee = () => {
 		setShowAddEmployee(false); 
 	}
 
-	const AddEmployee = () => {
-		return (
-			<Layout
-				style={{
-					minHeight: "100vh",
-					display: "flex",
-					flexDirection: "column",
-					backgroundColor: "white",
-					width: "90vw",
-					margin: "auto",
-				}}
-			>
-				<Header
-					style={{
-						backgroundColor: "white",
-						borderBottom: "1px solid lightgrey",
-						paddingLeft: "0em",
-						paddingRight: "0em",
-						marginTop: "2em",
-					}}
-				>
-					<Row justify="space-between" align="middle">
-						<Col>
-							<Space>
-								<ArrowLeftOutlined
-									style={{ fontSize: "24px", marginRight: "1em" }}
-								/>
-								<Title level={2}>Employee Name</Title>
-							</Space>
-						</Col>
-						<Col>
-							<Button type="danger" icon={<DeleteOutlined />}>
-								Delete
-							</Button>
-						</Col>
-					</Row>
-				</Header>
-				<form onSubmit={handleSubmit}>
-					<Content>
-						<div id="contentdiv">
-							<Row gutter={[100, 100]}>
-								<Col span={8}>
-									<div>
-										<img
-											src={require("./passport.jpg")}
-											alt="Employee"
-											width={300}
-											height={375}
-										/>
-									</div>
-								</Col>
-								<Col span={8}>
-									<Title level={4}>GENERAL DETAILS</Title>
-									<Form.Item name="employeeName" rules={[{ required: true }]}>
-										<label>
-											Employee Name
-											<Input name="employeeName" onChange={handleChange} />
-										</label>
-										<br />
-									</Form.Item>
-
-									<Form.Item
-										name="employeeEmail"
-										rules={[{ required: true, type: "email" }]}
-									>
-										<label>
-											Email
-											<Input name="employeeEmail" onChange={handleChange} />
-										</label>
-										<br />
-									</Form.Item>
-									<Form.Item name="phoneNumber" rules={[{ required: true }]}>
-										<label>
-											Phone Number
-											<Input name="phoneNumber" onChange={handleChange} />
-										</label>
-									</Form.Item>
-									<Title level={4}>EMPLOYMENT DETAILS</Title>
-									<Form.Item name="employeeStatus" rules={[{ required: true }]}>
-										<label>
-											Employee Status
-											<Select
-												name="employeeStatus"
-												onChange={(status) =>
-													handleSelect(status, "employeeStatus")
-												}
-											>
-												<Select.Option value="Employed">Employed</Select.Option>
-												<Select.Option value="Fired">Fired</Select.Option>
-												<Select.Option value="Resigned">Resigned</Select.Option>
-											</Select>
-										</label>
-									</Form.Item>
-									<Form.Item name="dateJoined" rules={[{ required: true }]}>
-										<label>
-											Date Joined
-											<DatePicker
-												name="dateJoined"
-												onChange={(date) => handleCalendar(date, "dateJoined")}
-											/>
-										</label>
-									</Form.Item>
-								</Col>
-								<Col span={8}>
-									<Title level={4}>ROLE DETAILS</Title>
-
-									<Form.Item name="position" rules={[{ required: true }]}>
-										<label>
-											Position
-											<Input name="position" onChange={handleChange} />
-										</label>
-										<br />
-									</Form.Item>
-
-									<Form.Item
-										name="employementType"
-										rules={[{ required: true }]}
-									>
-										<label>
-											Employement Type
-											<Select
-												name="employementType"
-												onChange={(status) =>
-													handleSelect(status, "employementType")
-												}
-											>
-												<Select.Option value="Fulltime">
-													Full Time
-												</Select.Option>
-												<Select.Option value="Parttime">
-													Part Time
-												</Select.Option>
-												<Select.Option value="Intern">Intern</Select.Option>
-											</Select>
-										</label>
-									</Form.Item>
-
-									<Form.Item name="workType" rules={[{ required: true }]}>
-										<label>
-											Work Type
-											<Select
-												name="workType"
-												onChange={(status) => handleSelect(status, "workType")}
-											>
-												<Select.Option value="On-site">On-site</Select.Option>
-												<Select.Option value="Remote">Remote</Select.Option>
-												<Select.Option value="Hybrid">Hybrid</Select.Option>
-											</Select>
-										</label>
-									</Form.Item>
-
-									<Form.Item name="department" rules={[{ required: true }]}>
-										<label>
-											Department
-											<Select
-												name="department"
-												id="department"
-												onChange={(status) =>
-													handleSelect(status, "department")
-												}
-											>
-												<Select.Option value="IT">IT</Select.Option>
-												<Select.Option value="Finance">Finance</Select.Option>
-												<Select.Option value="Human Resource">
-													Human Resource
-												</Select.Option>
-												<Select.Option value="Sales">Sales</Select.Option>
-												<Select.Option value="Marketing">
-													Marketing
-												</Select.Option>
-												<Select.Option value="Research and Development">
-													Research and Development
-												</Select.Option>
-											</Select>
-										</label>
-									</Form.Item>
-
-									<Form.Item name="manager" rules={[{ required: true }]}>
-										<label>
-											Manager
-											<Select
-												name="manager"
-												id="manager"
-												onChange={(status) => handleSelect(status, "manager")}
-											>
-												<Select.Option value="Irene">Irene</Select.Option>
-												<Select.Option value="Jane">Jane</Select.Option>
-												<Select.Option value="Mark">Mark</Select.Option>
-											</Select>
-										</label>
-									</Form.Item>
-									<Form.Item name="isManager">
-										<label>
-											Manager
-											<Switch
-												name="isManager"
-												style={{ marginLeft: "1em" }}
-												checked={isManager}
-												onChange={handleSwitch}
-											/>
-										</label>
-									</Form.Item>
-								</Col>
-							</Row>
-						</div>
-					</Content>
-					<Footer
-						style={{
-							backgroundColor: "white",
-							paddingLeft: "0em",
-							paddingRight: "0em",
-							position: "absolute",
-							bottom: "1em",
-							display: "flex",
-							gap: "2em",
-						}}
-					>
-						<Button
-							type="primary"
-							htmlType="submit"
-							style={{
-								backgroundColor: "black",
-								width: "300px",
-								height: "auto",
-								fontSize: "1.5em",
-							}}
-						>
-							Submit
-						</Button>
-						<Button
-							type="primary"
-							style={{
-								backgroundColor: "#CDCDCD",
-								width: "300px",
-								height: "auto",
-								fontSize: "1.5em",
-								color: "black",
-							}}
-							onClick={handleHideAddEmployee}
-						>
-							Cancel
-						</Button>
-					</Footer>
-				</form>
-			</Layout>
-		);
-	}
-
+	const handleShowAddEmployee = () => {
+		console.log("handleShowAddEmployee called");
+		setShowAddEmployee(true);
+	};
+	
+	// const AddEmployee = () => {
+	// 	return (
+			
+	// 	);
+	// }
+	
 	const tableColumns = [
 		{
 			title: "Name",
@@ -481,11 +244,7 @@ const EmployeeProfile = () => {
 		},
 	];
 	
-	const handleShowAddEmployee = () => {
-		console.log("handleShowAddEmployee called");
-		setShowAddEmployee(true);
 
-	};
 
 	
 
@@ -504,7 +263,261 @@ const EmployeeProfile = () => {
 					/>
 				</div>
 			) : (
-				<AddEmployee /> 
+				<Layout
+					style={{
+						minHeight: "100vh",
+						display: "flex",
+						flexDirection: "column",
+						backgroundColor: "white",
+						width: "90vw",
+						margin: "auto",
+					}}
+				>
+					<Header
+						style={{
+							backgroundColor: "white",
+							borderBottom: "1px solid lightgrey",
+							paddingLeft: "0em",
+							paddingRight: "0em",
+							marginTop: "2em",
+						}}
+					>
+						<Row justify="space-between" align="middle">
+							<Col>
+								<Space>
+									<ArrowLeftOutlined
+										style={{ fontSize: "24px", marginRight: "1em" }}
+										onClick={handleHideAddEmployee}
+									/>
+									<Title level={2}>Employee Name</Title>
+								</Space>
+							</Col>
+							<Col>
+								<Button type="danger" icon={<DeleteOutlined />}>
+									Delete
+								</Button>
+							</Col>
+						</Row>
+					</Header>
+					<form onSubmit={handleSubmit}>
+						<Content>
+							<div id="contentdiv">
+								<Row gutter={[100, 100]}>
+									<Col span={8}>
+										<div>
+											<img
+												src={require("./passport.jpg")}
+												alt="Employee"
+												width={300}
+												height={375}
+											/>
+										</div>
+									</Col>
+									<Col span={8}>
+										<Title level={4}>GENERAL DETAILS</Title>
+										<Form.Item name="employeeName" rules={[{ required: true }]}>
+											<label>
+												Employee Name
+												<Input name="employeeName" onChange={handleChange} />
+											</label>
+											<br />
+										</Form.Item>
+
+										<Form.Item
+											name="employeeEmail"
+											rules={[{ required: true, type: "email" }]}
+										>
+											<label>
+												Email
+												<Input name="employeeEmail" onChange={handleChange} />
+											</label>
+											<br />
+										</Form.Item>
+										<Form.Item name="phoneNumber" rules={[{ required: true }]}>
+											<label>
+												Phone Number
+												<Input name="phoneNumber" onChange={handleChange} />
+											</label>
+										</Form.Item>
+										<Title level={4}>EMPLOYMENT DETAILS</Title>
+										<Form.Item
+											name="employeeStatus"
+											rules={[{ required: true }]}
+										>
+											<label>
+												Employee Status
+												<Select
+													name="employeeStatus"
+													onChange={(status) =>
+														handleSelect(status, "employeeStatus")
+													}
+												>
+													<Select.Option value="Employed">
+														Employed
+													</Select.Option>
+													<Select.Option value="Fired">Fired</Select.Option>
+													<Select.Option value="Resigned">
+														Resigned
+													</Select.Option>
+												</Select>
+											</label>
+										</Form.Item>
+										<Form.Item name="dateJoined" rules={[{ required: true }]}>
+											<label>
+												Date Joined
+												<DatePicker
+													name="dateJoined"
+													onChange={(date) =>
+														handleCalendar(date, "dateJoined")
+													}
+												/>
+											</label>
+										</Form.Item>
+									</Col>
+									<Col span={8}>
+										<Title level={4}>ROLE DETAILS</Title>
+
+										<Form.Item name="position" rules={[{ required: true }]}>
+											<label>
+												Position
+												<Input name="position" onChange={handleChange} />
+											</label>
+											<br />
+										</Form.Item>
+
+										<Form.Item
+											name="employementType"
+											rules={[{ required: true }]}
+										>
+											<label>
+												Employement Type
+												<Select
+													name="employementType"
+													onChange={(status) =>
+														handleSelect(status, "employementType")
+													}
+												>
+													<Select.Option value="Fulltime">
+														Full Time
+													</Select.Option>
+													<Select.Option value="Parttime">
+														Part Time
+													</Select.Option>
+													<Select.Option value="Intern">Intern</Select.Option>
+												</Select>
+											</label>
+										</Form.Item>
+
+										<Form.Item name="workType" rules={[{ required: true }]}>
+											<label>
+												Work Type
+												<Select
+													name="workType"
+													onChange={(status) =>
+														handleSelect(status, "workType")
+													}
+												>
+													<Select.Option value="On-site">On-site</Select.Option>
+													<Select.Option value="Remote">Remote</Select.Option>
+													<Select.Option value="Hybrid">Hybrid</Select.Option>
+												</Select>
+											</label>
+										</Form.Item>
+
+										<Form.Item name="department" rules={[{ required: true }]}>
+											<label>
+												Department
+												<Select
+													name="department"
+													id="department"
+													onChange={(status) =>
+														handleSelect(status, "department")
+													}
+												>
+													<Select.Option value="IT">IT</Select.Option>
+													<Select.Option value="Finance">Finance</Select.Option>
+													<Select.Option value="Human Resource">
+														Human Resource
+													</Select.Option>
+													<Select.Option value="Sales">Sales</Select.Option>
+													<Select.Option value="Marketing">
+														Marketing
+													</Select.Option>
+													<Select.Option value="Research and Development">
+														Research and Development
+													</Select.Option>
+												</Select>
+											</label>
+										</Form.Item>
+
+										<Form.Item name="manager" rules={[{ required: true }]}>
+											<label>
+												Manager
+												<Select
+													name="manager"
+													id="manager"
+													onChange={(status) => handleSelect(status, "manager")}
+												>
+													<Select.Option value="Irene">Irene</Select.Option>
+													<Select.Option value="Jane">Jane</Select.Option>
+													<Select.Option value="Mark">Mark</Select.Option>
+												</Select>
+											</label>
+										</Form.Item>
+										<Form.Item name="isManager">
+											<label>
+												Manager
+												<Switch
+													name="isManager"
+													style={{ marginLeft: "1em" }}
+													checked={isManager}
+													onChange={handleSwitch}
+												/>
+											</label>
+										</Form.Item>
+									</Col>
+								</Row>
+							</div>
+						</Content>
+						<Footer
+							style={{
+								backgroundColor: "white",
+								paddingLeft: "0em",
+								paddingRight: "0em",
+								position: "absolute",
+								bottom: "1em",
+								display: "flex",
+								gap: "2em",
+							}}
+						>
+							<Button
+								type="primary"
+								htmlType="submit"
+								style={{
+									backgroundColor: "black",
+									width: "300px",
+									height: "auto",
+									fontSize: "1.5em",
+								}}
+							>
+								Submit
+							</Button>
+							<Button
+								type="primary"
+								style={{
+									backgroundColor: "#CDCDCD",
+									width: "300px",
+									height: "auto",
+									fontSize: "1.5em",
+									color: "black",
+								}}
+								onClick={handleHideAddEmployee}
+							>
+								Cancel
+							</Button>
+						</Footer>
+					</form>
+				</Layout>
 			)}
 		</div>
 	);

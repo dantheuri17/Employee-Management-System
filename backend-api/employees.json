@@ -52,5 +52,19 @@
     "department": "IT",
     "manager": "Jane",
     "isManager": false
+  },
+  {
+    "employeeID": "de06ea01-b059-48a3-b563-478e9628d71e",
+    "isManager": false,
+    "manager": "Mark",
+    "phoneNumber": "+232454326435",
+    "employeeName": "Tracy",
+    "employeeEmail": "Saka",
+    "employeeStatus": "Resigned",
+    "dateJoined": "2023-04-12T19:24:51.719Z",
+    "position": "HR Manager",
+    "employementType": "Fulltime",
+    "workType": "Remote",
+    "department": "Sales"
   }
 ]
