@@ -301,10 +301,10 @@ const EmployeeProfile = () => {
 									<Col span={8}>
 										<div>
 											<img
-												src={require("./passport.jpg")}
+												src={require("./passport.png")}
 												alt="Employee"
-												width={300}
-												height={375}
+												width={400}
+												height={400}
 											/>
 										</div>
 									</Col>
