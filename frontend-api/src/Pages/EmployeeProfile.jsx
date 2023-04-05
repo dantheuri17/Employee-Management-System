@@ -34,6 +34,9 @@ const EmployeeProfile = () => {
 	const [submitted, setSubmitted] = useState(false);
 	const [isManager, setIsManager] = useState(false);
 	const [showAddEmployee, setShowAddEmployee] = useState(false);
+	const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+
 
 	const serverHost = "http://localhost:4000";
 
@@ -206,6 +209,15 @@ const EmployeeProfile = () => {
 		setShowAddEmployee(true);
 	};
 
+	const handleEmployeeClick = (record) => {
+		setSelectedEmployee(record);
+	  };
+	
+	  const handleClearSelection = () => {
+		setSelectedEmployee(null);
+	  };
+	
+
 	// const AddEmployee = () => {
 	// 	return (
 
@@ -249,15 +261,24 @@ const EmployeeProfile = () => {
 	return (
 		<div id="pagediv">
 			{!showAddEmployee ? (
+				!selectedEmployee ? (
 				<div>
 					<button onClick={handleShowAddEmployee}>Add Employee</button>
 					<Table
 						columns={tableColumns}
 						dataSource={receivedEmployeeData}
 						rowKey="employeeID"
+						onRow={(record, rowIndex) => {
+						  return {
+							onClick: () =>  handleEmployeeClick(record),
+						  };
+						}}
 					/>
 				</div>
 			) : (
+				<p>See employee Record</p>
+			)
+			):(
 				<Layout
 					style={{
 						minHeight: "100vh",
@@ -478,7 +499,8 @@ const EmployeeProfile = () => {
 								position: "absolute",
 								bottom: "1em",
 								display: "flex",
-								gap: "2em",
+								gap: "2em"
+						
 							}}
 						>
 							<Button
