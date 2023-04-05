@@ -287,11 +287,7 @@ const EmployeeProfile = () => {
 									<Title level={2}>Employee Name</Title>
 								</Space>
 							</Col>
-							<Col>
-								<Button type="danger" icon={<DeleteOutlined />}>
-									Delete
-								</Button>
-							</Col>
+							
 						</Row>
 					</Header>
 					<form onSubmit={handleSubmit}>
@@ -461,7 +457,7 @@ const EmployeeProfile = () => {
 										</Form.Item>
 										<Form.Item name="isManager">
 											<label>
-												Manager
+												Employee Manager Status
 												<Switch
 													name="isManager"
 													style={{ marginLeft: "1em" }}
