@@ -35,6 +35,8 @@ const EmployeeProfile = () => {
 	const [isManager, setIsManager] = useState(false);
 	const [showAddEmployee, setShowAddEmployee] = useState(false);
 	const [selectedEmployee, setSelectedEmployee] = useState(null);
+	const [formstate, setFormstate] = useState(false);
+
 
 
 
@@ -211,6 +213,7 @@ const EmployeeProfile = () => {
 
 	const handleEmployeeClick = (record) => {
 		setSelectedEmployee(record);
+		setFormstate(true);
 	  };
 	
 	  const handleClearSelection = () => {
@@ -260,8 +263,7 @@ const EmployeeProfile = () => {
 
 	return (
 		<div id="pagediv">
-			{!showAddEmployee ? (
-				!selectedEmployee ? (
+			{!showAddEmployee && !selectedEmployee ? (
 				<div>
 					<button onClick={handleShowAddEmployee}>Add Employee</button>
 					<Table
@@ -275,9 +277,6 @@ const EmployeeProfile = () => {
 						}}
 					/>
 				</div>
-			) : (
-				<p>See employee Record</p>
-			)
 			):(
 				<Layout
 					style={{
@@ -330,7 +329,7 @@ const EmployeeProfile = () => {
 										<Form.Item name="employeeName" rules={[{ required: true }]}>
 											<label>
 												Employee Name
-												<Input name="employeeName" onChange={handleChange} />
+												<Input name="employeeName" onChange={handleChange} disabled={formstate}/>
 											</label>
 											<br />
 										</Form.Item>
@@ -341,14 +340,14 @@ const EmployeeProfile = () => {
 										>
 											<label>
 												Email
-												<Input name="employeeEmail" onChange={handleChange} />
+												<Input name="employeeEmail" onChange={handleChange} disabled={formstate} />
 											</label>
 											<br />
 										</Form.Item>
 										<Form.Item name="phoneNumber" rules={[{ required: true }]}>
 											<label>
 												Phone Number
-												<Input name="phoneNumber" onChange={handleChange} />
+												<Input name="phoneNumber" onChange={handleChange} disabled={formstate} />
 											</label>
 										</Form.Item>
 										<Title level={4}>EMPLOYMENT DETAILS</Title>
@@ -360,6 +359,7 @@ const EmployeeProfile = () => {
 												Employee Status
 												<Select
 													name="employeeStatus"
+													disabled={formstate}
 													onChange={(status) =>
 														handleSelect(status, "employeeStatus")
 													}
@@ -379,6 +379,7 @@ const EmployeeProfile = () => {
 												Date Joined
 												<DatePicker
 													name="dateJoined"
+													disabled={formstate}
 													onChange={(date) =>
 														handleCalendar(date, "dateJoined")
 													}
@@ -392,7 +393,7 @@ const EmployeeProfile = () => {
 										<Form.Item name="position" rules={[{ required: true }]}>
 											<label>
 												Position
-												<Input name="position" onChange={handleChange} />
+												<Input name="position" onChange={handleChange} disabled={formstate} />
 											</label>
 											<br />
 										</Form.Item>
@@ -405,6 +406,7 @@ const EmployeeProfile = () => {
 												Employement Type
 												<Select
 													name="employementType"
+													disabled={formstate}
 													onChange={(status) =>
 														handleSelect(status, "employementType")
 													}
@@ -425,6 +427,7 @@ const EmployeeProfile = () => {
 												Work Type
 												<Select
 													name="workType"
+													disabled={formstate}
 													onChange={(status) =>
 														handleSelect(status, "workType")
 													}
@@ -441,6 +444,7 @@ const EmployeeProfile = () => {
 												Department
 												<Select
 													name="department"
+													disabled={formstate}
 													id="department"
 													onChange={(status) =>
 														handleSelect(status, "department")
@@ -467,6 +471,7 @@ const EmployeeProfile = () => {
 												Manager
 												<Select
 													name="manager"
+													disabled={formstate}
 													id="manager"
 													onChange={(status) => handleSelect(status, "manager")}
 												>
@@ -481,6 +486,7 @@ const EmployeeProfile = () => {
 												Employee Manager Status
 												<Switch
 													name="isManager"
+													disabled={formstate}
 													style={{ marginLeft: "1em" }}
 													checked={isManager}
 													onChange={handleSwitch}
