@@ -14,57 +14,45 @@
     "isManager": true
   },
   {
-    "employeeID": "42faca6a-8fce-4f0c-b648-afbbc3134268",
+    "employeeID": "f21dd5a3-b2f1-4b23-9ea7-478f44e25a88",
     "employeeName": "Alexis Obel",
     "employeeEmail": "alexisobel@gmail.com",
     "phoneNumber": "0739391012",
     "employeeStatus": "Employed",
-    "dateJoined": "2023-03-29T15:27:12.126Z",
+    "dateJoined": "2023-03-28T12:35:43.760Z",
     "position": "Cyber Security Consultant",
     "employementType": "Parttime",
     "workType": "Remote",
     "department": "IT",
-    "manager": "none"
+    "manager": "Irene",
+    "isManager": true
   },
   {
-    "employeeID": "75db185c-1c5c-4a6b-9c27-1a616470f639",
+    "employeeID": "a8dc9cd5-8443-4526-bbe0-a38dca3cf5ab",
+    "isManager": false,
+    "employeeName": "John Doe",
+    "employeeEmail": "johndoe@gmail.com",
+    "phoneNumber": "0739391012",
+    "employeeStatus": "Fired",
+    "dateJoined": "2023-03-26T12:45:25.702Z",
+    "position": "Consultant",
+    "employementType": "Fulltime",
+    "workType": "Remote",
+    "department": "Human Resource",
+    "manager": "Irene"
+  },
+  {
+    "employeeID": "e8fbc66a-1b18-40cc-8ee5-01e104423e77",
+    "isManager": true,
     "employeeName": "Daniel Theuri",
     "employeeEmail": "danieltheuri@gmail.com",
-    "phoneNumber": "0722667733",
+    "phoneNumber": "0739391012",
     "employeeStatus": "Resigned",
-    "dateJoined": "2023-03-26T15:28:12.894Z",
-    "position": "Software Developer",
-    "employementType": "Fulltime",
-    "workType": "Remote",
-    "department": "Research and Development",
-    "manager": "irene"
-  },
-  {
-    "employeeID": "907090c5-6072-4f69-b4a4-7601f8af05e2",
-    "employeeName": "Chebet Koske",
-    "employeeEmail": "chebet@gmail.com",
-    "phoneNumber": "0722667733",
-    "employeeStatus": "Employed",
-    "dateJoined": "2023-04-26T17:10:57.864Z",
+    "dateJoined": "2023-03-26T13:48:31.375Z",
     "position": "Cyber Security Consultant",
-    "employementType": "Parttime",
-    "workType": "Hybrid",
-    "department": "IT",
-    "manager": "Jane",
-    "isManager": false
-  },
-  {
-    "employeeID": "de06ea01-b059-48a3-b563-478e9628d71e",
-    "isManager": false,
-    "manager": "Mark",
-    "phoneNumber": "+232454326435",
-    "employeeName": "Tracy",
-    "employeeEmail": "Saka",
-    "employeeStatus": "Resigned",
-    "dateJoined": "2023-04-12T19:24:51.719Z",
-    "position": "HR Manager",
     "employementType": "Fulltime",
     "workType": "Remote",
-    "department": "Sales"
+    "department": "Human Resource",
+    "manager": "Jane"
   }
 ]
