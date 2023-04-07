@@ -1,8 +1,17 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Statistic } from 'antd';
-import employeeData from '../employees.json';
 
 function EmployeeDataCard(){
+
+  const [employeeData, setEmployeeData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/employees')
+    .then(response => response.json())
+    .then(data => setEmployeeData(data))
+    .catch(error => console.error(error));
+    }, []);
 
   const totalEmployees = employeeData.length;
   const resignedEmployees = employeeData.filter(employee => employee.employeeStatus === "Resigned").length;
@@ -10,10 +19,10 @@ function EmployeeDataCard(){
   const partTimeEmployees = employeeData.filter(employee => employee.employementType === "Parttime").length;
 
   return (
-    <div className="site-layout-content" style={{ marginLeft: '1px' }}>
-    <h3 style={{ textAlign: 'left' }}>Job statistics</h3>
-    <Card size="medium" style={{ width: '45%', marginLeft: '2px' }}>
-      <Row gutter={16}>
+    <div className="site-layout-content" style={{ marginLeft: '1px', marginTop: '70px'}}>
+    <h3 style={{ fontWeight: 'bold', textAlign: 'left' }}>Job Statistics</h3>
+    <Card size="medium" style={{ width: '45%', marginLeft: '2px'}}>
+      <Row gutter={12}>
         <Col span={12}>
           <Card bordered={true} size="medium" style={{ marginBottom: '31px' }}>
             <Statistic
@@ -33,7 +42,7 @@ function EmployeeDataCard(){
           </Card>
         </Col>
       </Row>
-      <Row gutter={16}>
+      <Row gutter={12}>
         <Col span={12}>
           <Card bordered={true} size="medium" style={{ marginBottom: '31px' }}>
             <Statistic
