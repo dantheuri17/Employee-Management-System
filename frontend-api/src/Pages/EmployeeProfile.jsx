@@ -237,6 +237,7 @@ const EmployeeProfile = () => {
 	};
 
 	const handleEmployeeClick = (record) => {
+		console.log("record", record)
 		setSelectedEmployee(record);
 		setFormstate(true);
 		setEditData(true);
@@ -359,7 +360,7 @@ const EmployeeProfile = () => {
 												 name="employeeName"
 												 onChange={handleChange}
 												 disabled={formstate}
-												 value={editData ? selectedEmployee.employeeName : undefined}
+												 defaultValue={editData ? selectedEmployee.employeeName : undefined}
 												 />
 											</label>
 											<br />
@@ -375,7 +376,7 @@ const EmployeeProfile = () => {
 												name="employeeEmail" 
 												onChange={handleChange} 
 												disabled={formstate}
-												value={editData ? selectedEmployee.employeeEmail : undefined}
+												defaultValue={editData ? selectedEmployee.employeeEmail : undefined}
 												/>
 											</label>
 											<br />
@@ -386,7 +387,7 @@ const EmployeeProfile = () => {
 												<Input name="phoneNumber"
 												 onChange={handleChange}
 												  disabled={formstate}
-												  value={editData ? selectedEmployee.phoneNumber: undefined}
+												  defaultValue={editData ? selectedEmployee.phoneNumber: undefined}
 												  />
 											</label>
 										</Form.Item>
@@ -403,7 +404,8 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 													handleSelect(status, "employeeStatus")
 													}
-													value={editData ? selectedEmployee.employeeStatus : undefined}
+									
+													defaultValue={editData ? selectedEmployee.employeeStatus : undefined}
 
 												>
 													<Select.Option value="Employed">
@@ -425,8 +427,7 @@ const EmployeeProfile = () => {
 													onChange={(date) =>
 														handleCalendar(date, "dateJoined")
 													}
-													defaultValue={editData? moment(selectedEmployee.dateJoined): null
-													  }
+													defaultValue={editData? moment(selectedEmployee.dateJoined): null}
 													  />
 											</label>
 										</Form.Item>
@@ -440,7 +441,7 @@ const EmployeeProfile = () => {
 												<Input name="position"
 												 onChange={handleChange}
 												  disabled={formstate}
-												  value={editData ? selectedEmployee.position : undefined}
+												  defaultValue={editData ? selectedEmployee.position : undefined}
 												  />
 											</label>
 											<br />
@@ -458,7 +459,7 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "employementType")
 													}
-													value={editData ? selectedEmployee.employementType : undefined}
+													defaultValue={editData ? selectedEmployee.employementType : undefined}
 
 												>
 													<Select.Option value="Fulltime">
@@ -481,7 +482,7 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "workType")
 													}
-													value={editData ? selectedEmployee.workType : undefined}
+													defaultValue={editData ? selectedEmployee.workType : undefined}
 
 												>
 													<Select.Option value="On-site">On-site</Select.Option>
@@ -501,7 +502,7 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "department")
 													}
-													value={editData ? selectedEmployee.department : undefined}
+													defaultValue={editData ? selectedEmployee.department : undefined}
 
 												>
 													<Select.Option value="IT">IT</Select.Option>
@@ -528,7 +529,7 @@ const EmployeeProfile = () => {
 													disabled={formstate}
 													id="manager"
 													onChange={(status) => handleSelect(status, "manager")}
-													value={editData ? selectedEmployee.manager : undefined}
+													defaultValue={editData ? selectedEmployee.manager : undefined}
 
 												>
 													<Select.Option value="Irene">Irene</Select.Option>
@@ -537,18 +538,7 @@ const EmployeeProfile = () => {
 												</Select>
 											</label>
 										</Form.Item>
-										<Form.Item name="isManager">
-											<label>
-												Employee Manager Status
-												<Switch
-													name="isManager"
-													disabled={formstate}
-													style={{ marginLeft: "1em" }}
-													checked={editData ? selectedEmployee.isManager : isManager}
-													onChange={handleSwitch}
-												/>
-											</label>
-										</Form.Item>
+							
 									</Col>
 								</Row>
 							</div>
