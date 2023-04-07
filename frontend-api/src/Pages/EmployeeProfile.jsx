@@ -215,6 +215,7 @@ async function updateEmployee(employeeID, updatedFields) {
 	};
 
 	const handleHideEditEmployee = () => {
+		setFormstate(false);
 		setShowEditEmployee(false);
 	};
 
