@@ -38,5 +38,18 @@
     "workType": "Hybrid",
     "department": "Research and Development",
     "manager": "Jane"
+  },
+  {
+    "employeeID": "7acdacff-10eb-479f-8c92-c99438e78e4c",
+    "employeeName": "dfdadfadf",
+    "employeeEmail": "dfdafadfadf",
+    "phoneNumber": "dfadfwerewr"
+  },
+  {
+    "employeeID": "f88d2108-1c9b-490c-83e1-284bd525ed45",
+    "employeeName": "sdSDSd",
+    "employeeEmail": "sdafda",
+    "phoneNumber": "sfdafadfadfad",
+    "employeeStatus": "Fired"
   }
 ]
