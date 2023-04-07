@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import moment from 'moment';
+import moment from "moment";
 import "./EmployeeProfile.css";
 import {
 	PlusOutlined,
@@ -31,19 +31,16 @@ const { TextArea } = Input;
 
 const EmployeeProfile = () => {
 	const [data, setData] = useState({
-		isManager:false
+		isManager: false,
 	});
 	const [receivedEmployeeData, setReceivedEmployeeData] = useState([]);
 	const [submitted, setSubmitted] = useState(false);
 	const [isManager, setIsManager] = useState(false);
 	const [showAddEmployee, setShowAddEmployee] = useState(false);
+	const [showEditEmployee, setShowEditEmployee] = useState(false);
 	const [selectedEmployee, setSelectedEmployee] = useState(null);
 	const [formstate, setFormstate] = useState(false);
 	const [editData, setEditData] = useState(false);
-
-
-
-
 
 	const serverHost = "http://localhost:4000";
 
@@ -74,7 +71,7 @@ const EmployeeProfile = () => {
 		// 		manager: selectedEmployee.manager
 		// 	});
 		//   }
-		  fetchData();
+		fetchData();
 	}, []);
 
 	async function addEmployee(employee) {
@@ -89,6 +86,29 @@ const EmployeeProfile = () => {
 		const response = await fetch(url, options);
 		if (response.status === 200) {
 			setSubmitted(true);
+		}
+	}
+
+	async function updateEmployee(employeeID, updatedEmployee) {
+		try {
+			const url = `${serverHost}/updateEmployee/${employeeID}`;
+			const options = {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(updatedEmployee),
+			};
+			const response = await fetch(url, options);
+			if (response.status === 200) {
+				setSubmitted(true);
+			} else {
+				// handle error
+				console.error(`Error: ${response.statusText}`);
+			}
+		} catch (error) {
+			// handle error
+			console.error(error);
 		}
 	}
 
@@ -124,6 +144,21 @@ const EmployeeProfile = () => {
 		console.log("Updated Data", updatedData);
 
 		setData(updatedData);
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		await addEmployee(data);
+		fetchData();
+		setShowAddEmployee(false);
+	};
+
+	const handleSaveChanges = async (e) => {
+		e.preventDefault();
+		// await updateEmployee(selectedEmployee._id, data);
+		console.log(`EmployeeID = ${selectedEmployee.employeeID} ${selectedEmployee}`);
+
+		console.log("In save changes");
 	};
 
 	function updateManagerOptions(selectedDepartment) {
@@ -164,7 +199,7 @@ const EmployeeProfile = () => {
 		console.log("Value in date", mydate);
 		console.log("value in name", myname);
 		const name = myname;
-		const value= mydate;
+		const value = mydate;
 		const currentInputFieldData = {
 			[name]: value,
 		};
@@ -202,29 +237,20 @@ const EmployeeProfile = () => {
 
 	const handleSwitch = (checked) => {
 		setIsManager(checked);
-		console.log("Checked", checked)
-		const currentInputFieldData = {}
-		if (checked || typeof checked === 'boolean') {
+		console.log("Checked", checked);
+		const currentInputFieldData = {};
+		if (checked || typeof checked === "boolean") {
 			currentInputFieldData.isManager = checked;
-			console.log("currentinputfielddata", currentInputFieldData)
-
-		  } else {
+			console.log("currentinputfielddata", currentInputFieldData);
+		} else {
 			currentInputFieldData.isManager = false;
-			console.log("currentinputfielddata", currentInputFieldData)
-
-		  }
+			console.log("currentinputfielddata", currentInputFieldData);
+		}
 		const updatedData = {
 			...data,
 			...currentInputFieldData,
 		};
 		setData(updatedData);
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		await addEmployee(data);
-		fetchData();
-		setShowAddEmployee(false);
 	};
 
 	const handleHideAddEmployee = () => {
@@ -238,20 +264,19 @@ const EmployeeProfile = () => {
 
 	const handleEmployeeClick = (record) => {
 		setSelectedEmployee(record);
+		console.log(`EmployeeID = ${record.employeeID}`);
 		setFormstate(true);
 		setEditData(true);
-	  };
+	};
+
+	const handleHideEditEmployee = () => {
+		setSelectedEmployee(null);
+	};
 
 	const handleEditEmployee = (e) => {
-		setFormstate(false); 
+		setFormstate(false);
 		e.preventDefault();
-	  }
-
-	const handleSaveChanges = (e) => {
-		e.preventDefault();
-		console.log("In save changes");
-
-	  }
+	};
 
 	const tableColumns = [
 		{
@@ -297,13 +322,13 @@ const EmployeeProfile = () => {
 						dataSource={receivedEmployeeData}
 						rowKey="employeeID"
 						onRow={(record, rowIndex) => {
-						  return {
-							onClick: () =>  handleEmployeeClick(record),
-						  };
+							return {
+								onClick: () => handleEmployeeClick(record),
+							};
 						}}
 					/>
 				</div>
-			):(
+			) : (
 				<Layout
 					style={{
 						minHeight: "100vh",
@@ -333,7 +358,6 @@ const EmployeeProfile = () => {
 									<Title level={2}>Employee Name</Title>
 								</Space>
 							</Col>
-							
 						</Row>
 					</Header>
 					<form onSubmit={handleSubmit}>
@@ -356,11 +380,13 @@ const EmployeeProfile = () => {
 											<label>
 												Employee Name
 												<Input
-												 name="employeeName"
-												 onChange={handleChange}
-												 disabled={formstate}
-												 value={editData ? selectedEmployee.employeeName : undefined}
-												 />
+													name="employeeName"
+													onChange={handleChange}
+													disabled={formstate}
+													value={
+														editData ? selectedEmployee.employeeName : undefined
+													}
+												/>
 											</label>
 											<br />
 										</Form.Item>
@@ -371,11 +397,15 @@ const EmployeeProfile = () => {
 										>
 											<label>
 												Email
-												<Input 
-												name="employeeEmail" 
-												onChange={handleChange} 
-												disabled={formstate}
-												value={editData ? selectedEmployee.employeeEmail : undefined}
+												<Input
+													name="employeeEmail"
+													onChange={handleChange}
+													disabled={formstate}
+													value={
+														editData
+															? selectedEmployee.employeeEmail
+															: undefined
+													}
 												/>
 											</label>
 											<br />
@@ -383,11 +413,14 @@ const EmployeeProfile = () => {
 										<Form.Item name="phoneNumber" rules={[{ required: true }]}>
 											<label>
 												Phone Number
-												<Input name="phoneNumber"
-												 onChange={handleChange}
-												  disabled={formstate}
-												  value={editData ? selectedEmployee.phoneNumber: undefined}
-												  />
+												<Input
+													name="phoneNumber"
+													onChange={handleChange}
+													disabled={formstate}
+													value={
+														editData ? selectedEmployee.phoneNumber : undefined
+													}
+												/>
 											</label>
 										</Form.Item>
 										<Title level={4}>EMPLOYMENT DETAILS</Title>
@@ -401,10 +434,13 @@ const EmployeeProfile = () => {
 													name="employeeStatus"
 													disabled={formstate}
 													onChange={(status) =>
-													handleSelect(status, "employeeStatus")
+														handleSelect(status, "employeeStatus")
 													}
-													value={editData ? selectedEmployee.employeeStatus : undefined}
-
+													value={
+														editData
+															? selectedEmployee.employeeStatus
+															: undefined
+													}
 												>
 													<Select.Option value="Employed">
 														Employed
@@ -425,9 +461,12 @@ const EmployeeProfile = () => {
 													onChange={(date) =>
 														handleCalendar(date, "dateJoined")
 													}
-													defaultValue={editData? moment(selectedEmployee.dateJoined): null
-													  }
-													  />
+													defaultValue={
+														editData
+															? moment(selectedEmployee.dateJoined)
+															: null
+													}
+												/>
 											</label>
 										</Form.Item>
 									</Col>
@@ -437,11 +476,14 @@ const EmployeeProfile = () => {
 										<Form.Item name="position" rules={[{ required: true }]}>
 											<label>
 												Position
-												<Input name="position"
-												 onChange={handleChange}
-												  disabled={formstate}
-												  value={editData ? selectedEmployee.position : undefined}
-												  />
+												<Input
+													name="position"
+													onChange={handleChange}
+													disabled={formstate}
+													value={
+														editData ? selectedEmployee.position : undefined
+													}
+												/>
 											</label>
 											<br />
 										</Form.Item>
@@ -458,8 +500,11 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "employementType")
 													}
-													value={editData ? selectedEmployee.employementType : undefined}
-
+													value={
+														editData
+															? selectedEmployee.employementType
+															: undefined
+													}
 												>
 													<Select.Option value="Fulltime">
 														Full Time
@@ -481,8 +526,9 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "workType")
 													}
-													value={editData ? selectedEmployee.workType : undefined}
-
+													value={
+														editData ? selectedEmployee.workType : undefined
+													}
 												>
 													<Select.Option value="On-site">On-site</Select.Option>
 													<Select.Option value="Remote">Remote</Select.Option>
@@ -501,8 +547,9 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "department")
 													}
-													value={editData ? selectedEmployee.department : undefined}
-
+													value={
+														editData ? selectedEmployee.department : undefined
+													}
 												>
 													<Select.Option value="IT">IT</Select.Option>
 													<Select.Option value="Finance">Finance</Select.Option>
@@ -528,8 +575,9 @@ const EmployeeProfile = () => {
 													disabled={formstate}
 													id="manager"
 													onChange={(status) => handleSelect(status, "manager")}
-													value={editData ? selectedEmployee.manager : undefined}
-
+													value={
+														editData ? selectedEmployee.manager : undefined
+													}
 												>
 													<Select.Option value="Irene">Irene</Select.Option>
 													<Select.Option value="Jane">Jane</Select.Option>
@@ -544,7 +592,9 @@ const EmployeeProfile = () => {
 													name="isManager"
 													disabled={formstate}
 													style={{ marginLeft: "1em" }}
-													checked={editData ? selectedEmployee.isManager : isManager}
+													checked={
+														editData ? selectedEmployee.isManager : isManager
+													}
 													onChange={handleSwitch}
 												/>
 											</label>
@@ -561,53 +611,56 @@ const EmployeeProfile = () => {
 								position: "absolute",
 								bottom: "1em",
 								display: "flex",
-								gap: "2em"
-						
+								gap: "2em",
 							}}
 						>
-						{!formstate ? (
-							editData ? (
+							{!formstate ? (
+								editData ? (
+									<Button
+										type="primary"
+										htmlType="button"
+										style={{
+											backgroundColor: "black",
+											width: "300px",
+											height: "auto",
+											fontSize: "1.5em",
+										}}
+										onClick={handleSaveChanges}
+									>
+										{" "}
+										Save Changes
+									</Button>
+								) : (
+									<Button
+										type="primary"
+										htmlType="submit"
+										style={{
+											backgroundColor: "black",
+											width: "300px",
+											height: "auto",
+											fontSize: "1.5em",
+										}}
+									>
+										{" "}
+										Submit
+									</Button>
+								)
+							) : (
 								<Button
-								type="primary"
-								htmlType="button"
-								style={{
-									backgroundColor: "black",
-									width: "300px",
-									height: "auto",
-									fontSize: "1.5em",
-								}}
-								onClick={handleSaveChanges}
-								> Save Changes
-							</Button>
-								
-
-							):(
-								<Button
-								type="primary"
-								htmlType="submit"
-								style={{
-									backgroundColor: "black",
-									width: "300px",
-									height: "auto",
-									fontSize: "1.5em",
-								}}
-								> Submit
-							</Button>
-							)
-						):(
-							<Button
-								type="primary"
-								htmlType="button"
-								style={{
-									backgroundColor: "black",
-									width: "300px",
-									height: "auto",
-									fontSize: "1.5em",
-								}}
-								onClick={handleEditEmployee}
-								> Edit
-							</Button>
-						)}
+									type="primary"
+									htmlType="button"
+									style={{
+										backgroundColor: "black",
+										width: "300px",
+										height: "auto",
+										fontSize: "1.5em",
+									}}
+									onClick={handleEditEmployee}
+								>
+									{" "}
+									Edit
+								</Button>
+							)}
 
 							<Button
 								type="primary"
@@ -618,7 +671,13 @@ const EmployeeProfile = () => {
 									fontSize: "1.5em",
 									color: "black",
 								}}
-								onClick={handleHideAddEmployee}
+								onClick={() => {
+									if (editData) {
+										handleHideEditEmployee();
+									} else {
+										handleHideAddEmployee();
+									}
+								}}
 							>
 								Cancel
 							</Button>
