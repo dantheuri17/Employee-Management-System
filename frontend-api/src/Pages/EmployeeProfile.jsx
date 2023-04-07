@@ -263,6 +263,7 @@ const EmployeeProfile = () => {
 	};
 
 	const handleEmployeeClick = (record) => {
+		console.log("record", record)
 		setSelectedEmployee(record);
 		console.log(`EmployeeID = ${record.employeeID}`);
 		setFormstate(true);
@@ -380,13 +381,11 @@ const EmployeeProfile = () => {
 											<label>
 												Employee Name
 												<Input
-													name="employeeName"
-													onChange={handleChange}
-													disabled={formstate}
-													value={
-														editData ? selectedEmployee.employeeName : undefined
-													}
-												/>
+												 name="employeeName"
+												 onChange={handleChange}
+												 disabled={formstate}
+												 defaultValue={editData ? selectedEmployee.employeeName : undefined}
+												 />
 											</label>
 											<br />
 										</Form.Item>
@@ -397,15 +396,11 @@ const EmployeeProfile = () => {
 										>
 											<label>
 												Email
-												<Input
-													name="employeeEmail"
-													onChange={handleChange}
-													disabled={formstate}
-													value={
-														editData
-															? selectedEmployee.employeeEmail
-															: undefined
-													}
+												<Input 
+												name="employeeEmail" 
+												onChange={handleChange} 
+												disabled={formstate}
+												defaultValue={editData ? selectedEmployee.employeeEmail : undefined}
 												/>
 											</label>
 											<br />
@@ -413,14 +408,11 @@ const EmployeeProfile = () => {
 										<Form.Item name="phoneNumber" rules={[{ required: true }]}>
 											<label>
 												Phone Number
-												<Input
-													name="phoneNumber"
-													onChange={handleChange}
-													disabled={formstate}
-													value={
-														editData ? selectedEmployee.phoneNumber : undefined
-													}
-												/>
+												<Input name="phoneNumber"
+												 onChange={handleChange}
+												  disabled={formstate}
+												  defaultValue={editData ? selectedEmployee.phoneNumber: undefined}
+												  />
 											</label>
 										</Form.Item>
 										<Title level={4}>EMPLOYMENT DETAILS</Title>
@@ -436,11 +428,9 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "employeeStatus")
 													}
-													value={
-														editData
-															? selectedEmployee.employeeStatus
-															: undefined
-													}
+									
+													defaultValue={editData ? selectedEmployee.employeeStatus : undefined}
+
 												>
 													<Select.Option value="Employed">
 														Employed
@@ -461,12 +451,8 @@ const EmployeeProfile = () => {
 													onChange={(date) =>
 														handleCalendar(date, "dateJoined")
 													}
-													defaultValue={
-														editData
-															? moment(selectedEmployee.dateJoined)
-															: null
-													}
-												/>
+													defaultValue={editData? moment(selectedEmployee.dateJoined): null}
+													  />
 											</label>
 										</Form.Item>
 									</Col>
@@ -476,14 +462,11 @@ const EmployeeProfile = () => {
 										<Form.Item name="position" rules={[{ required: true }]}>
 											<label>
 												Position
-												<Input
-													name="position"
-													onChange={handleChange}
-													disabled={formstate}
-													value={
-														editData ? selectedEmployee.position : undefined
-													}
-												/>
+												<Input name="position"
+												 onChange={handleChange}
+												  disabled={formstate}
+												  defaultValue={editData ? selectedEmployee.position : undefined}
+												  />
 											</label>
 											<br />
 										</Form.Item>
@@ -500,11 +483,8 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "employementType")
 													}
-													value={
-														editData
-															? selectedEmployee.employementType
-															: undefined
-													}
+													defaultValue={editData ? selectedEmployee.employementType : undefined}
+
 												>
 													<Select.Option value="Fulltime">
 														Full Time
@@ -526,9 +506,8 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "workType")
 													}
-													value={
-														editData ? selectedEmployee.workType : undefined
-													}
+													defaultValue={editData ? selectedEmployee.workType : undefined}
+
 												>
 													<Select.Option value="On-site">On-site</Select.Option>
 													<Select.Option value="Remote">Remote</Select.Option>
@@ -547,9 +526,8 @@ const EmployeeProfile = () => {
 													onChange={(status) =>
 														handleSelect(status, "department")
 													}
-													value={
-														editData ? selectedEmployee.department : undefined
-													}
+													defaultValue={editData ? selectedEmployee.department : undefined}
+
 												>
 													<Select.Option value="IT">IT</Select.Option>
 													<Select.Option value="Finance">Finance</Select.Option>
@@ -575,9 +553,8 @@ const EmployeeProfile = () => {
 													disabled={formstate}
 													id="manager"
 													onChange={(status) => handleSelect(status, "manager")}
-													value={
-														editData ? selectedEmployee.manager : undefined
-													}
+													defaultValue={editData ? selectedEmployee.manager : undefined}
+
 												>
 													<Select.Option value="Irene">Irene</Select.Option>
 													<Select.Option value="Jane">Jane</Select.Option>
@@ -585,20 +562,7 @@ const EmployeeProfile = () => {
 												</Select>
 											</label>
 										</Form.Item>
-										<Form.Item name="isManager">
-											<label>
-												Employee Manager Status
-												<Switch
-													name="isManager"
-													disabled={formstate}
-													style={{ marginLeft: "1em" }}
-													checked={
-														editData ? selectedEmployee.isManager : isManager
-													}
-													onChange={handleSwitch}
-												/>
-											</label>
-										</Form.Item>
+							
 									</Col>
 								</Row>
 							</div>
