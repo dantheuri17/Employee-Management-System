@@ -87,30 +87,30 @@ const EmployeeProfile = () => {
 		}
 	}
 
-	async function updateEmployee(employeeID, updatedEmployee) {
-		try {
-			const url = `${serverHost}/updateEmployee/${employeeID}`;
-			const options = {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(updatedEmployee),
-				
-			};
-			console.log("Updated Employee", updatedEmployee);
-			const response = await fetch(url, options);
-			if (response.status === 200) {
-				// setSubmitted(true);
-			} else {
-				// handle error
-				console.error(`Error: ${response.statusText}`);
-			}
-		} catch (error) {
+async function updateEmployee(employeeID, updatedFields) {
+	try {
+		const url = `${serverHost}/updateEmployee/${employeeID}`;
+		const options = {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(updatedFields),
+		};
+		console.log("Updated Employee", options.body);
+		const response = await fetch(url, options);
+		if (response.status === 200) {
+			// setSubmitted(true);
+		} else {
 			// handle error
-			console.error(error);
+			console.error(`Error: ${response.statusText}`);
 		}
+	} catch (error) {
+		// handle error
+		console.error(error);
 	}
+}
+
 
 	async function deleteEmployee(employeeID) {
 		const url = `${serverHost}/deleteEmployee/${employeeID}`;
@@ -153,6 +153,7 @@ const EmployeeProfile = () => {
 		console.log(`In save changes ${selectedEmployee.employeeID}`, data);
 		fetchData();
 	};
+
 
 	function updateManagerOptions(selectedDepartment) {
 		const myData = receivedEmployeeData;
