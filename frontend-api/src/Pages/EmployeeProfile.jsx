@@ -70,7 +70,7 @@ const EmployeeProfile = () => {
 		// 	});
 		//   }
 		fetchData();
-	}, []);
+	}, [receivedEmployeeData]);
 
 	async function addEmployee(employee) {
 		const url = serverHost + "/addEmployee";
@@ -153,6 +153,25 @@ async function updateEmployee(employeeID, updatedFields) {
 		console.log(`In save changes ${selectedEmployee.employeeID}`, data);
 		fetchData();
 		setEditData(false);
+		console.log("Received employee data", receivedEmployeeData);
+
+		const updatedEmployee = data; 
+		console.log("Updated Employee", data);
+
+		const employeeID = selectedEmployee.employeeID; 
+		const updatedEmployeeData = receivedEmployeeData.map((employee) => {
+		if (employee.employeeID === employeeID) {
+			console.log("ID matched")
+			console.log("Full updated data", {...employee, ...updatedEmployee})
+			return { ...employee, ...updatedEmployee }; // Spread the existing employee object and the updated data
+		}
+		return employee; // Return the original employee object for all other cases
+		});
+		console.log("Updated Data outside", updatedEmployeeData)
+		setReceivedEmployeeData(updatedEmployeeData);
+		console.log("prop change", receivedEmployeeData);
+		handleHideEditEmployee();
+
 	};
 
 	// HANDLING FORM INPUTS
@@ -217,6 +236,7 @@ async function updateEmployee(employeeID, updatedFields) {
 	const handleHideEditEmployee = () => {
 		setFormstate(false);
 		setShowEditEmployee(false);
+		
 	};
 
 	const handleEditEmployee = (e) => {
