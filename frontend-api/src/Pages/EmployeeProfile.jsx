@@ -30,9 +30,7 @@ const { Title } = Typography;
 const { TextArea } = Input;
 
 const EmployeeProfile = () => {
-	const [data, setData] = useState({
-		isManager: false,
-	});
+	const [data, setData] = useState({});
 	const [receivedEmployeeData, setReceivedEmployeeData] = useState([]);
 	const [submitted, setSubmitted] = useState(false);
 	const [isManager, setIsManager] = useState(false);
@@ -98,10 +96,12 @@ const EmployeeProfile = () => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(updatedEmployee),
+				
 			};
+			console.log("Updated Employee", updatedEmployee);
 			const response = await fetch(url, options);
 			if (response.status === 200) {
-				setSubmitted(true);
+				// setSubmitted(true);
 			} else {
 				// handle error
 				console.error(`Error: ${response.statusText}`);
@@ -124,19 +124,12 @@ const EmployeeProfile = () => {
 	}
 
 	const handleChange = (e) => {
-		console.log("Value in e", e);
-		console.log("E value", e.target.name);
-		console.log("E value", e.target.value);
-
 		const name = e.target.name;
 		const value = e.target.value;
-		console.log("E name", e.target.name);
-		console.log("E value", e.target.value);
 
 		const currentInputFieldData = {
 			[name]: value,
 		};
-		console.log("Current Input Field", currentInputFieldData);
 		const updatedData = {
 			...data,
 			...currentInputFieldData,
@@ -156,9 +149,9 @@ const EmployeeProfile = () => {
 	const handleSaveChanges = async (e) => {
 		e.preventDefault();
 		// await updateEmployee(selectedEmployee._id, data);
-		console.log(`EmployeeID = ${selectedEmployee.employeeID} ${selectedEmployee}`);
-
-		console.log("In save changes");
+		updateEmployee(selectedEmployee.employeeID, data);
+		console.log(`In save changes ${selectedEmployee.employeeID}`, data);
+		fetchData();
 	};
 
 	function updateManagerOptions(selectedDepartment) {

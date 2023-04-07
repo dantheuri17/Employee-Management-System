@@ -50,7 +50,7 @@ app.put("/updateEmployee/:employeeID", jsonParser, (request, response) => {
 	const updatedEmployee = request.body;
 	employeeData = employeeData.map((employee) => {
 		if (employee.employeeID === id) {
-			return { employeeID: id, ...updatedEmployee };
+			return { employee, ...updatedEmployee };
 		}
 		return employee;
 	});
