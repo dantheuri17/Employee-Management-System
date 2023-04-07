@@ -318,7 +318,13 @@ async function updateEmployee(employeeID, updatedFields) {
 								<Space>
 									<ArrowLeftOutlined
 										style={{ fontSize: "24px", marginRight: "1em" }}
-										onClick={handleHideAddEmployee}
+										onClick={() => {
+											if (showEditEmployee) {
+												handleHideEditEmployee();
+											} else {
+												handleHideAddEmployee();
+											}
+										}}
 									/>
 									<Title level={2}>Employee Details</Title>
 								</Space>
