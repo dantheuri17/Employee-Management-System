@@ -320,7 +320,7 @@ async function updateEmployee(employeeID, updatedFields) {
 										style={{ fontSize: "24px", marginRight: "1em" }}
 										onClick={handleHideAddEmployee}
 									/>
-									<Title level={2}>Employee Name</Title>
+									<Title level={2}>Employee Details</Title>
 								</Space>
 							</Col>
 						</Row>
