@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout} from 'antd';
 import { useState, useEffect } from 'react';
-import EmployeeTable from '../EmployeeTable';
+import EmployeeProfile from '../EmployeeProfile';
 import EmployeeDataCard from '../EmployeeDataCard';
 import LineGraph from '../LineGraph';
 import Header from '../Header';
@@ -43,7 +43,7 @@ function Home() {
      <LineGraph/>
    </div>
    <div style={employeeTableStyles }>
-     <EmployeeTable/>
+     <EmployeeProfile/>
    </div>
     <div>
     <EmployeePie/>
