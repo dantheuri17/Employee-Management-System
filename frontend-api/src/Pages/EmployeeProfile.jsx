@@ -152,41 +152,8 @@ async function updateEmployee(employeeID, updatedFields) {
 		updateEmployee(selectedEmployee.employeeID, data);
 		console.log(`In save changes ${selectedEmployee.employeeID}`, data);
 		fetchData();
+		setEditData(false);
 	};
-
-
-	function updateManagerOptions(selectedDepartment) {
-		const myData = receivedEmployeeData;
-		console.log("MY DATA", myData);
-		console.log("Slected Dep", selectedDepartment);
-		const managersInDepartment = myData.filter(
-			(employee) =>
-				employee.isManager === true &&
-				employee.department === selectedDepartment
-		);
-		console.log("Managers in Deparment", managersInDepartment);
-		const managerDropdown = document.getElementById("manager");
-
-		// Clear existing options
-		if (managerDropdown.options) {
-			var i,
-				L = managerDropdown.options.length - 1;
-			for (i = L; i >= 0; i--) {
-				managerDropdown.remove(i);
-			}
-			console.log("Just cleared manager dropdown");
-		}
-
-		// Add new options
-		managersInDepartment.forEach((manager) => {
-			console.log("Inside For each");
-			console.log("Manager", manager);
-			const option = document.createElement("option");
-			option.value = manager.employeeName;
-			option.text = manager.employeeName;
-			managerDropdown.appendChild(option);
-		});
-	}
 
 	// HANDLING FORM INPUTS
 	const handleCalendar = (mydate, myname) => {
@@ -229,23 +196,6 @@ async function updateEmployee(employeeID, updatedFields) {
 		// }
 	};
 
-	const handleSwitch = (checked) => {
-		setIsManager(checked);
-		console.log("Checked", checked);
-		const currentInputFieldData = {};
-		if (checked || typeof checked === "boolean") {
-			currentInputFieldData.isManager = checked;
-			console.log("currentinputfielddata", currentInputFieldData);
-		} else {
-			currentInputFieldData.isManager = false;
-			console.log("currentinputfielddata", currentInputFieldData);
-		}
-		const updatedData = {
-			...data,
-			...currentInputFieldData,
-		};
-		setData(updatedData);
-	};
 
 	const handleHideAddEmployee = () => {
 		setShowAddEmployee(false);
