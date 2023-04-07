@@ -33,10 +33,11 @@
     "employeeEmail": "dantheuri17@gmail.com",
     "phoneNumber": "254769666212",
     "employeeStatus": "Fired",
-    "position": "Software Engineer",
+    "position": "Software Engineering",
     "employementType": "Fulltime",
     "workType": "Hybrid",
-    "department": "Research and Development",
-    "manager": "Jane"
+    "department": "Marketing",
+    "manager": "Jane",
+    "dateJoined": "2023-03-29T20:26:48.066Z"
   }
 ]
