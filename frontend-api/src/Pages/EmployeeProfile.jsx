@@ -208,14 +208,14 @@ async function updateEmployee(employeeID, updatedFields) {
 
 	const handleEmployeeClick = (record) => {
 		console.log("record", record)
+		setShowEditEmployee(true);
 		setSelectedEmployee(record);
 		console.log(`EmployeeID = ${record.employeeID}`);
 		setFormstate(true);
-		setEditData(true);
 	};
 
 	const handleHideEditEmployee = () => {
-		setSelectedEmployee(null);
+		setShowEditEmployee(false);
 	};
 
 	const handleEditEmployee = (e) => {
@@ -255,11 +255,10 @@ async function updateEmployee(employeeID, updatedFields) {
 		},
 	];
 
-	console.log("showAddEmployee:", showAddEmployee);
 
 	return (
 		<div id="pagediv">
-			{!showAddEmployee && !selectedEmployee ? (
+			{!showAddEmployee && !showEditEmployee ? (
 				<div>
 					<button onClick={handleShowAddEmployee}>Add Employee</button>
 					<Table
@@ -328,7 +327,7 @@ async function updateEmployee(employeeID, updatedFields) {
 												 name="employeeName"
 												 onChange={handleChange}
 												 disabled={formstate}
-												 defaultValue={editData ? selectedEmployee.employeeName : undefined}
+												 defaultValue={showEditEmployee ? selectedEmployee.employeeName : undefined}
 												 />
 											</label>
 											<br />
@@ -344,7 +343,7 @@ async function updateEmployee(employeeID, updatedFields) {
 												name="employeeEmail" 
 												onChange={handleChange} 
 												disabled={formstate}
-												defaultValue={editData ? selectedEmployee.employeeEmail : undefined}
+												defaultValue={showEditEmployee ? selectedEmployee.employeeEmail : undefined}
 												/>
 											</label>
 											<br />
@@ -355,7 +354,7 @@ async function updateEmployee(employeeID, updatedFields) {
 												<Input name="phoneNumber"
 												 onChange={handleChange}
 												  disabled={formstate}
-												  defaultValue={editData ? selectedEmployee.phoneNumber: undefined}
+												  defaultValue={showEditEmployee ? selectedEmployee.phoneNumber: undefined}
 												  />
 											</label>
 										</Form.Item>
@@ -373,7 +372,7 @@ async function updateEmployee(employeeID, updatedFields) {
 														handleSelect(status, "employeeStatus")
 													}
 									
-													defaultValue={editData ? selectedEmployee.employeeStatus : undefined}
+													defaultValue={showEditEmployee ? selectedEmployee.employeeStatus : undefined}
 
 												>
 													<Select.Option value="Employed">
@@ -395,7 +394,7 @@ async function updateEmployee(employeeID, updatedFields) {
 													onChange={(date) =>
 														handleCalendar(date, "dateJoined")
 													}
-													defaultValue={editData? moment(selectedEmployee.dateJoined): null}
+													defaultValue={showEditEmployee? moment(selectedEmployee.dateJoined): null}
 													  />
 											</label>
 										</Form.Item>
@@ -409,7 +408,7 @@ async function updateEmployee(employeeID, updatedFields) {
 												<Input name="position"
 												 onChange={handleChange}
 												  disabled={formstate}
-												  defaultValue={editData ? selectedEmployee.position : undefined}
+												  defaultValue={showEditEmployee ? selectedEmployee.position : undefined}
 												  />
 											</label>
 											<br />
@@ -427,7 +426,7 @@ async function updateEmployee(employeeID, updatedFields) {
 													onChange={(status) =>
 														handleSelect(status, "employementType")
 													}
-													defaultValue={editData ? selectedEmployee.employementType : undefined}
+													defaultValue={showEditEmployee ? selectedEmployee.employementType : undefined}
 
 												>
 													<Select.Option value="Fulltime">
@@ -450,7 +449,7 @@ async function updateEmployee(employeeID, updatedFields) {
 													onChange={(status) =>
 														handleSelect(status, "workType")
 													}
-													defaultValue={editData ? selectedEmployee.workType : undefined}
+													defaultValue={showEditEmployee ? selectedEmployee.workType : undefined}
 
 												>
 													<Select.Option value="On-site">On-site</Select.Option>
@@ -470,7 +469,7 @@ async function updateEmployee(employeeID, updatedFields) {
 													onChange={(status) =>
 														handleSelect(status, "department")
 													}
-													defaultValue={editData ? selectedEmployee.department : undefined}
+													defaultValue={showEditEmployee ? selectedEmployee.department : undefined}
 
 												>
 													<Select.Option value="IT">IT</Select.Option>
@@ -497,7 +496,7 @@ async function updateEmployee(employeeID, updatedFields) {
 													disabled={formstate}
 													id="manager"
 													onChange={(status) => handleSelect(status, "manager")}
-													defaultValue={editData ? selectedEmployee.manager : undefined}
+													defaultValue={showEditEmployee ? selectedEmployee.manager : undefined}
 
 												>
 													<Select.Option value="Irene">Irene</Select.Option>
@@ -523,7 +522,7 @@ async function updateEmployee(employeeID, updatedFields) {
 							}}
 						>
 							{!formstate ? (
-								editData ? (
+								showEditEmployee ? (
 									<Button
 										type="primary"
 										htmlType="button"
@@ -580,7 +579,7 @@ async function updateEmployee(employeeID, updatedFields) {
 									color: "black",
 								}}
 								onClick={() => {
-									if (editData) {
+									if (showEditEmployee) {
 										handleHideEditEmployee();
 									} else {
 										handleHideAddEmployee();

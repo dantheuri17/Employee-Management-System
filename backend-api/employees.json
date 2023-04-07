@@ -28,20 +28,6 @@
     "isManager": true
   },
   {
-    "employeeID": "a8dc9cd5-8443-4526-bbe0-a38dca3cf5ab",
-    "isManager": false,
-    "employeeName": "John Doe",
-    "employeeEmail": "johndoe@gmail.com",
-    "phoneNumber": "0739391012",
-    "employeeStatus": "Fired",
-    "dateJoined": "2023-03-26T12:45:25.702Z",
-    "position": "Consultant",
-    "employementType": "Fulltime",
-    "workType": "Remote",
-    "department": "Human Resource",
-    "manager": "Irene"
-  },
-  {
     "employeeID": "e8fbc66a-1b18-40cc-8ee5-01e104423e77",
     "employeeName": "Daniel Theuri",
     "employeeEmail": "dantheuri17@gmail.com",
@@ -49,7 +35,7 @@
     "employeeStatus": "Fired",
     "position": "Software Engineer",
     "employementType": "Fulltime",
-    "workType": "Remote",
+    "workType": "Hybrid",
     "department": "Research and Development",
     "manager": "Jane"
   }
