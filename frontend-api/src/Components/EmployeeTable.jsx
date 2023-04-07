@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -16,6 +16,14 @@ const EmployeeTable = () => {
   const [visible, setVisible] = useState(false);
   const [editing, setEditing] = useState(false);
   const [form] = Form.useForm();
+
+
+  useEffect(() => {
+    fetch('http://localhost:4000/employees')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error(error));
+  }, []);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -144,7 +152,8 @@ const EmployeeTable = () => {
          Add Employee
       </Button>
     </div>
-         <Table
+         <Table  
+           responsive={true}
            dataSource={data}
            columns={columns}
            rowKey="id"
@@ -154,7 +163,7 @@ const EmployeeTable = () => {
            //console.log(Navigating to employee details page for employee ${record.id});
           },
         })}
-        style={{ width: '750px' }} 
+        style={{ width: '750px', marginTop: '-10px' }} 
 
               />
 
