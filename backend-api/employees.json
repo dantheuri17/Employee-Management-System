@@ -43,16 +43,14 @@
   },
   {
     "employeeID": "e8fbc66a-1b18-40cc-8ee5-01e104423e77",
-    "isManager": true,
     "employeeName": "Daniel Theuri",
-    "employeeEmail": "danieltheuri@gmail.com",
-    "phoneNumber": "0739391012",
-    "employeeStatus": "Resigned",
-    "dateJoined": "2023-03-26T13:48:31.375Z",
-    "position": "Cyber Security Consultant",
+    "employeeEmail": "dantheuri17@gmail.com",
+    "phoneNumber": "254769666212",
+    "employeeStatus": "Fired",
+    "position": "Software Engineer",
     "employementType": "Fulltime",
     "workType": "Remote",
-    "department": "Human Resource",
+    "department": "Research and Development",
     "manager": "Jane"
   }
 ]

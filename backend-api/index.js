@@ -45,6 +45,23 @@ app.post("/addEmployee", jsonParser, (request, response) => {
 	
 });
 
+app.put("/updateEmployee/:employeeID", jsonParser, (request, response) => {
+	const id = request.params.employeeID;
+	const updatedFields = request.body;
+
+	employeeData = employeeData.map((employee) => {
+		if (employee.employeeID === id) {
+			return { ...employee, ...updatedFields };
+		}
+		return employee;
+	});
+
+	fs.writeFileSync(fileName, JSON.stringify(employeeData, null, 2));
+	response.send(employeeData);
+});
+
+
+
 app.delete("/deleteEmployee/:employeeID", (request, response) => {
 	const id = request.params.employeeID;
 	employeeData = employeeData.filter((employee) => employee.employeeID !== id);
