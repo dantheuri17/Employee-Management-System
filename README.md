@@ -1,7 +1,5 @@
 # Employee-Management-System
 
-## Screenshots
-
 Created a web application built using Node.js, Bootstrap, and React.js, which serves as a valuable tool for empowering employers in small-scale organizations to streamline the management of employee information, roles, and statuses. 
 
 ## Contributors
