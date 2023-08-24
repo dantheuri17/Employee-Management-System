@@ -8,9 +8,9 @@ Created a web application built using Node.js, Bootstrap, and React.js, which se
 
 This is a group project involving
 
-    Kendi Anyika
-    Daniel Theuri
-    Alexis Obel
+- Kendi Anyika
+- Daniel Theuri
+- Alexis Obel
 
 My Role
 
@@ -18,12 +18,12 @@ My roles in this project was primarily in the backend
 
 Tools and Languages
 
-    NodeJS
-    Express
-    JavaScript
-    Handlebards
-    Bootstrap
-    JSON
+- NodeJS
+- Express
+- JavaScript
+- Handlebards
+- Bootstrap
+- JSON
 
 ## Application Walkthrough
 ### Employer Dashboard
