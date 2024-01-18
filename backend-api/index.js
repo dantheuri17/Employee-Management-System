@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 const cors = require("cors");
-const port = 4000;
+// const port = 4000;
 const jsonParser = express.json();
 const fileName = "employees.json";
 const uuid = require('uuid').v4;
@@ -70,5 +70,5 @@ app.delete("/deleteEmployee/:employeeID", (request, response) => {
 });
 
 
-app.listen(port);
-console.log(`server listening on port ${port}`);
+// app.listen(port);
+// console.log(`server listening on port ${port}`);
