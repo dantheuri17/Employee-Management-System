@@ -40,7 +40,7 @@ const EmployeeProfile = () => {
 	const [formstate, setFormstate] = useState(false);
 	const [editData, setEditData] = useState(false);
 
-	const serverHost = "http://localhost:4000";
+	const serverHost = "employee-management-system-pink.vercel.app";
 
 	const fetchData = async () => {
 		try {
