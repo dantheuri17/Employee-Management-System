@@ -40,7 +40,7 @@ const EmployeeProfile = () => {
 	const [formstate, setFormstate] = useState(false);
 	const [editData, setEditData] = useState(false);
 
-	const serverHost = "https://employee-management-system-backend-qspc.onrender.com";
+	const serverHost = "https://employee-management-system-pink.vercel.app/";
 
 	const fetchData = async () => {
 		try {
