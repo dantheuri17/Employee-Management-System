@@ -8,11 +8,7 @@ const fileName = "employees.json";
 const uuid = require('uuid').v4;
 
 // Allow requests only from this client
-app.use(
-	cors({
-		origin: "https://employee-management-system-frontend-zeta.vercel.app/",
-	})
-);
+app.use(cors());
 
 // Load employeeData from file
 let rawData = fs.readFileSync(fileName);
