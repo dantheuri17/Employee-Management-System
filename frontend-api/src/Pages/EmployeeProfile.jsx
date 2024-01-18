@@ -40,7 +40,7 @@ const EmployeeProfile = () => {
 	const [formstate, setFormstate] = useState(false);
 	const [editData, setEditData] = useState(false);
 
-	const serverHost = "https://employee-management-system-tuf7.onrender.com/";
+	const serverHost = "https://employee-management-system-tuf7.onrender.com";
 
 	const fetchData = async () => {
 		try {
