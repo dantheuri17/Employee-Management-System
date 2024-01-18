@@ -10,7 +10,7 @@ const uuid = require('uuid').v4;
 // Allow requests only from this client
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: "https://employee-management-system-frontend-zeta.vercel.app/",
 	})
 );
 
